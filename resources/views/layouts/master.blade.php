@@ -25,9 +25,9 @@
 <div class="main-wrapper">
     <div class="header">
         <div class="header-left">
-{{--            <a href="{{ route('home') }}" class="logo logo-small">--}}
-                <img src="{{ URL::to('assets/img/icon.png') }}" alt="Logo" width="60" height="60">
-{{--            </a>--}}
+            <a href="{{ route('home') }}" class="logo">
+                <img src="{{ URL::to('assets/img/icon.png') }}" alt="Logo">
+            </a>
         </div>
         <div class="menu-toggle">
             <a href="javascript:void(0);" id="toggle_btn">
@@ -63,21 +63,17 @@
             <li class="nav-item dropdown has-arrow new-user-menus">
                 <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <span class="user-img">
-{{--                            <img class="rounded-circle" src="/images/{{ Session::get('avatar') }}" width="31"alt="{{ Session::get('TenDN') }}">--}}
                             <div class="user-text">
                                 <h6>{{ Session::get('TenDN') }}</h6>
-                                <p class="text-muted mb-0">{{ Session::get('role_name') }}</p>
+                                <p class="text-muted mb-0">{{ Session::get('TenVaiTro') }}</p>
                             </div>
                         </span>
                 </a>
                 <div class="dropdown-menu">
                     <div class="user-header">
-{{--                        <div class="avatar avatar-sm">--}}
-{{--                            <img src="/images/{{ Session::get('avatar') }}" alt="{{ Session::get('name') }}" class="avatar-img rounded-circle">--}}
-{{--                        </div>--}}
                         <div class="user-text">
                             <h6>{{ Session::get('TenDN') }}</h6>
-                            <p class="text-muted mb-0">{{ Session::get('role_name') }}</p>
+                            <p class="text-muted mb-0">{{ Session::get('TenVaiTro') }}</p>
                         </div>
                     </div>
 {{--                    <a class="dropdown-item" href="{{ route('user/profile/page') }}">My Profile</a>--}}

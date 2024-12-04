@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\QuanTriVien;
 use App\Providers\RouteServiceProvider;
 //use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
@@ -56,6 +57,13 @@ class LoginController extends Controller
                 Session::put('NgayTao', $user->NgayTao);
                 Session::put('TrangThaiTK', $user->TrangThaiTK);
 
+                // Lấy thông tin quản trị viên và vai trò của họ
+                $admin = QuanTriVien::where('TenDN', $username)->first();
+                if ($admin) {
+                    $role = $admin->vaiTro ? $admin->vaiTro->TenVaiTro : 'Chưa xác định';
+                    Session::put('TenVaiTro', $role); // Lưu tên vai trò vào session
+                }
+
                 Toastr::success('Đăng nhập thành công!', 'Thành công');
                 DB::commit();
                 return redirect()->intended('home'); // Chuyển đến trang home
@@ -65,6 +73,7 @@ class LoginController extends Controller
                 DB::rollBack();
                 return redirect()->back();
             }
+
 
         } catch (\Exception $e) {
             DB::rollBack();
