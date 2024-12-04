@@ -9,19 +9,18 @@
 {{--                {{set_active(['home','teacher/dashboard','student/dashboard'])}}--}}
                 ">
                     <a href="#"><i class="feather-grid"></i>
-                        <span> Dashboard</span>
+                        <span> Quản lý tài khoản</span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
                         <li><a href="
-{{--                        {{ route('home') }}" class="{{set_active(['home'])}}--}}
-                        ">Admin Dashboard</a></li>
+                        {{ route('list/admin') }}">Tài khoản Admin</a></li>
                         <li><a href="#
 {{--                        {{ route('teacher/dashboard') }}" class="{{set_active(['teacher/dashboard'])}}--}}
-                        ">Teacher Dashboard</a></li>
+                        ">Tài khoản Gia sư</a></li>
                         <li><a href="#
 {{--                        {{ route('student/dashboard') }}" class="{{set_active(['student/dashboard'])}}--}}
-                        ">Student Dashboard</a></li>
+                        ">Tài khoản Phụ huynh</a></li>
                     </ul>
                 </li>
 {{--                @if (Session::get('role_name') === 'Admin' || Session::get('role_name') === 'Super Admin')--}}

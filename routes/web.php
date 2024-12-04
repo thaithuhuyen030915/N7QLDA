@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\QLTaiKhoan\TKAdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 //Front (Client)
 Route::get('/', function () {
-    return view('auth.login');
+//    return view('auth.login');
+    return view('quanlytaikhoan.list_admin');
+
 });
 
 Route::group(['middleware'=>'auth'],function()
@@ -40,5 +43,12 @@ Route::controller(HomeController::class)->group(function () {
 //    Route::get('teacher/dashboard', 'teacherDashboardIndex')->middleware('auth')->name('teacher/dashboard');
 //    Route::get('student/dashboard', 'studentDashboardIndex')->middleware('auth')->name('student/dashboard');
 });
+
+// -------------------------- tài koản ----------------------//
+//------- Admin -------//
+Route::middleware('auth')->group(function () {
+    Route::get('list/admin', [TKAdminController::class, 'index'])->name('list/admin');
+});
+
 
 
