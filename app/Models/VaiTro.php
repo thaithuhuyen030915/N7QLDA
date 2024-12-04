@@ -10,6 +10,16 @@ class VaiTro extends Model
     use HasFactory;
 
     protected $table = 'VaiTro';
+    protected $primaryKey = 'MaVT';
+    public $incrementing = false; // Vì `MaVT` không tự tăng
+    protected $keyType = 'string';
 
-    protected $fillable = ['MaVT', 'TenVaiTro', 'MoTa', 'Quyen'];
+    public $timestamps = false;
+
+    protected $fillable = ['MaVT', 'TenVaiTro', 'MoTa'];
+
+    public function QuanTriVien(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(QuanTriVien::class, 'MaVT', 'MaVT');
+    }
 }

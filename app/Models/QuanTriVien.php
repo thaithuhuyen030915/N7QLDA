@@ -21,8 +21,8 @@ class QuanTriVien extends Model
         return $this->belongsTo(TaiKhoan::class, 'TenDN', 'TenDN');  // Liên kết với bảng TaiKhoan qua TenDN
     }
 
-    public function vaiTro(): BelongsTo
+    public function VaiTro(): BelongsTo
     {
-        return $this->belongsTo(VaiTro::class, 'MaVT', 'MaVT');  // Liên kết với bảng VaiTro qua MaVT
+        return $this->belongsTo(VaiTro::class, 'MaVT', 'MaVT');
     }
 }

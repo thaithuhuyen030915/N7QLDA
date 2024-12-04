@@ -13,8 +13,7 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                        <li><a href="
-                        {{ route('list/admin') }}" class="{{set_active(['list/admin'])}} ">Tài khoản Admin</a></li>
+                        <li><a href="{{ route('list/admin') }}" class="{{ set_active(['list/admin', 'list/roles']) }}">Tài khoản Admin</a></li>
                         <li><a href="#
 {{--                        {{ route('teacher/dashboard') }}" class="{{set_active(['teacher/dashboard'])}}--}}
                         ">Tài khoản Gia sư</a></li>

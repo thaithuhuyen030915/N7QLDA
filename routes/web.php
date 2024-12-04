@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QLTaiKhoan\TKAdminController;
+use App\Http\Controllers\QLTaiKhoan\VaiTroController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,6 +56,17 @@ Route::controller(HomeController::class)->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('list/admin', [TKAdminController::class, 'index'])->name('list/admin');
 });
+Route::middleware('auth')->group(function () {
+    // Hiển thị danh sách vai trò
+    Route::get('list/roles', [VaiTroController::class, 'index'])->name('list.roles');
 
+    // Xử lý thêm mới và cập nhật vai trò
+    Route::post('roles/store', [VaiTroController::class, 'store'])->name('roles.store');
+    Route::post('roles/update/{id}', [VaiTroController::class, 'update'])->name('roles.update');
+    Route::delete('roles/destroy/{id}', [VaiTroController::class, 'destroy'])->name('roles.destroy');
+});
 
+Route::middleware('auth')->group(function () {
+    Route::resource('roles', VaiTroController::class);
+});
 
