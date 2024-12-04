@@ -6,7 +6,7 @@
                     <span>Main Menu</span>
                 </li>
                 <li class="submenu
-{{--                {{set_active(['home','teacher/dashboard','student/dashboard'])}}--}}
+                {{set_active(['list/admin'])}}
                 ">
                     <a href="#"><i class="feather-grid"></i>
                         <span> Quản lý tài khoản</span>
@@ -14,7 +14,7 @@
                     </a>
                     <ul>
                         <li><a href="
-                        {{ route('list/admin') }}">Tài khoản Admin</a></li>
+                        {{ route('list/admin') }}" class="{{set_active(['list/admin'])}} ">Tài khoản Admin</a></li>
                         <li><a href="#
 {{--                        {{ route('teacher/dashboard') }}" class="{{set_active(['teacher/dashboard'])}}--}}
                         ">Tài khoản Gia sư</a></li>
