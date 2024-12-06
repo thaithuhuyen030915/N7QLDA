@@ -1,20 +1,10 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QLTaiKhoan\TKAdminController;
 use App\Http\Controllers\QLTaiKhoan\VaiTroController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\homeController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 function set_active( $route ) {
     if( is_array( $route ) ){
         return in_array(Request::path(), $route) ? 'active' : '';
@@ -69,6 +59,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::resource('roles', VaiTroController::class);
 });
+<<<<<<< HEAD
 
 
 
@@ -81,3 +72,6 @@ Route::post('admin/store', [TKAdminController::class, 'store'])->name('admin.sto
 Route::delete('admin/delete', [TKAdminController::class, 'delete'])->name('admin.delete');
 
 
+=======
+Route::get('/', [homeController::class,'index'])->name('home');
+>>>>>>> 0761ba547a582d96c8b64c66b7bef422efda839f
