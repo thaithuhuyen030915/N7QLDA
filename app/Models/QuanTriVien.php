@@ -11,6 +11,7 @@ class QuanTriVien extends Model
     use HasFactory;
 
     protected $table = 'QuanTriVien';
+    public $timestamps = false; // Nếu không sử dụng các cột timestamps (created_at, updated_at)
 
     protected $fillable = [
         'MaQT', 'HoTenQT', 'Email', 'SDT', 'TenDN', 'MaVT'
@@ -21,8 +22,8 @@ class QuanTriVien extends Model
         return $this->belongsTo(TaiKhoan::class, 'TenDN', 'TenDN');  // Liên kết với bảng TaiKhoan qua TenDN
     }
 
-    public function vaiTro(): BelongsTo
+    public function VaiTro(): BelongsTo
     {
-        return $this->belongsTo(VaiTro::class, 'MaVT', 'MaVT');  // Liên kết với bảng VaiTro qua MaVT
+        return $this->belongsTo(VaiTro::class, 'MaVT', 'MaVT');
     }
 }
