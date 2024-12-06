@@ -27,12 +27,20 @@ Route::group(['middleware'=>'auth'],function()
     });
 });
 
-// ----------------------------login ------------------------------//
+// ----------------------------Đăng nhập ------------------------------//
 use App\Http\Controllers\Auth\LoginController;
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// ----------------------------Đăng ký ------------------------------//
+use App\Http\Controllers\Auth\RegisterController;
+    // Hiển thị form đăng ký
+Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+    // Xử lý đăng ký
+Route::post('register', [RegisterController::class, 'register']);
+
 
 // -------------------------- main dashboard ----------------------//
 Route::controller(HomeAdminController::class)->group(function () {
