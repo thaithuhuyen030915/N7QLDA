@@ -68,7 +68,7 @@ class LoginController extends Controller
 
                     Toastr::success('Đăng nhập thành công!', 'Thành công');
                     DB::commit();
-                    return redirect()->intended('home'); // Chuyển đến trang home
+                    return redirect()->intended('homeadmin'); // Chuyển đến trang home
                 } else {
                     // Nếu loại tài khoản không phải là QTV
                     Toastr::error('Tài khoản không có quyền quản trị.', 'Lỗi');

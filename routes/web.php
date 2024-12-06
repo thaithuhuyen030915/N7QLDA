@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeAdminController;
 use App\Http\Controllers\QLTaiKhoan\TKAdminController;
 use App\Http\Controllers\QLTaiKhoan\VaiTroController;
 use Illuminate\Support\Facades\Route;
@@ -20,9 +21,9 @@ Route::get('/admin', function () {
 
 Route::group(['middleware'=>'auth'],function()
 {
-    Route::get('home',function()
+    Route::get('/homeadmin',function()
     {
-        return view('home');
+        return view('dashboard.home');
     });
 });
 
@@ -34,8 +35,8 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // -------------------------- main dashboard ----------------------//
-Route::controller(HomeController::class)->group(function () {
-    Route::get('/home', 'index')->middleware('auth')->name('home');
+Route::controller(HomeAdminController::class)->group(function () {
+    Route::get('/homeadmin', 'index')->middleware('auth')->name('homeadmin');
 //    Route::get('user/profile/page', 'userProfile')->middleware('auth')->name('user/profile/page');
 //    Route::get('teacher/dashboard', 'teacherDashboardIndex')->middleware('auth')->name('teacher/dashboard');
 //    Route::get('student/dashboard', 'studentDashboardIndex')->middleware('auth')->name('student/dashboard');
@@ -59,7 +60,6 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::resource('roles', VaiTroController::class);
 });
-<<<<<<< HEAD
 
 
 
@@ -72,6 +72,4 @@ Route::post('admin/store', [TKAdminController::class, 'store'])->name('admin.sto
 Route::delete('admin/delete', [TKAdminController::class, 'delete'])->name('admin.delete');
 
 
-=======
 Route::get('/', [homeController::class,'index'])->name('home');
->>>>>>> 0761ba547a582d96c8b64c66b7bef422efda839f
