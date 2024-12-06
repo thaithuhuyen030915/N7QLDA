@@ -22,7 +22,7 @@ function set_active( $route ) {
     return Request::path() == $route ? 'active' : '';
 }
 //Front (Client)
-Route::get('/', function () {
+Route::get('/admin', function () {
 //    return view('auth.login');
     return view('auth.login');
 
@@ -69,4 +69,15 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::resource('roles', VaiTroController::class);
 });
+
+
+
+// Route hiển thị form thêm tài khoản
+Route::get('admin/create', [TKAdminController::class, 'create'])->name('admin.create');
+
+// Route xử lý form thêm tài khoản
+Route::post('admin/store', [TKAdminController::class, 'store'])->name('admin.store');
+
+Route::delete('admin/delete', [TKAdminController::class, 'delete'])->name('admin.delete');
+
 

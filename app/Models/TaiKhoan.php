@@ -34,7 +34,6 @@ class TaiKhoan extends Model implements AuthenticatableContract
     }
     public function quanTriVien()
     {
-        return $this->belongsTo(QuanTriVien::class, 'TenDN', 'TenDN');
+        return $this->hasOne(QuanTriVien::class, 'TenDN', 'TenDN');
     }
-
 }

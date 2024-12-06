@@ -16,10 +16,13 @@ class VaiTro extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['MaVT', 'TenVaiTro', 'MoTa'];
+    protected $fillable = ['MaVT', 'TenVaiTro', 'MoTa', 'Quyen'];
 
     public function QuanTriVien(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(QuanTriVien::class, 'MaVT', 'MaVT');
     }
+    protected $casts = [
+        'Quyen' => 'array',
+    ];
 }

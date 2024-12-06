@@ -11,6 +11,7 @@ class QuanTriVien extends Model
     use HasFactory;
 
     protected $table = 'QuanTriVien';
+    public $timestamps = false; // Nếu không sử dụng các cột timestamps (created_at, updated_at)
 
     protected $fillable = [
         'MaQT', 'HoTenQT', 'Email', 'SDT', 'TenDN', 'MaVT'
