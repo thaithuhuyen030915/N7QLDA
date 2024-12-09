@@ -1,6 +1,5 @@
 <?php
 
-// app/Http/Controllers/QLTaiKhoan/TKAdminController.php
 
 namespace App\Http\Controllers\QLTaiKhoan;
 

@@ -4,29 +4,33 @@ use App\Http\Controllers\HomeAdminController;
 use App\Http\Controllers\QLTaiKhoan\TKAdminController;
 use App\Http\Controllers\QLTaiKhoan\VaiTroController;
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
 use App\Http\Controllers\GiasuController;
-  
-use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\LoginController;
+//use Illuminate\Http\Request;
 use App\Models\Giasu;
 use App\Models\PhuHuynh;
-=======
 use App\Http\Controllers\homeController;
->>>>>>> fedee5e49427ce6d90ad8ffc0990e3cf26cd4a30
 
-function set_active( $route ) {
-    if( is_array( $route ) ){
-        return in_array(Request::path(), $route) ? 'active' : '';
+use Illuminate\Support\Facades\Request;
+
+function set_active($route) {
+    $currentPath = request()->path(); // Lấy đường dẫn hiện tại từ request
+
+    if (is_array($route)) {
+        return in_array($currentPath, $route) ? 'active' : '';
     }
-    return Request::path() == $route ? 'active' : '';
+
+    return $currentPath == $route ? 'active' : '';
 }
-//Front (Client)
+
+
+//Đăng nhập trang admin
 Route::get('/admin', function () {
 //    return view('auth.login');
     return view('auth.login');
 
 });
-
+//Vào màn hình chính trang admin
 Route::group(['middleware'=>'auth'],function()
 {
     Route::get('/homeadmin',function()
@@ -35,14 +39,13 @@ Route::group(['middleware'=>'auth'],function()
     });
 });
 
-// ----------------------------Đăng nhập ------------------------------//
-use App\Http\Controllers\Auth\LoginController;
+// ---------------------------- Xử lý login ------------------------------//
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// ----------------------------Đăng ký ------------------------------//
+// ----------------------------Đăng ký tài khoản khách------------------------------//
 use App\Http\Controllers\Auth\RegisterController;
     // Hiển thị form đăng ký
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
@@ -50,37 +53,40 @@ Route::get('register', [RegisterController::class, 'showRegistrationForm'])->nam
 Route::post('register', [RegisterController::class, 'register']);
 
 
-// -------------------------- main dashboard ----------------------//
+// -------------------------- Hiển thị trang chủ Admin ----------------------//
 Route::controller(HomeAdminController::class)->group(function () {
     Route::get('/homeadmin', 'index')->middleware('auth')->name('homeadmin');
-//    Route::get('user/profile/page', 'userProfile')->middleware('auth')->name('user/profile/page');
-//    Route::get('teacher/dashboard', 'teacherDashboardIndex')->middleware('auth')->name('teacher/dashboard');
-//    Route::get('student/dashboard', 'studentDashboardIndex')->middleware('auth')->name('student/dashboard');
 });
 
-// -------------------------- tài koản ----------------------//
+// -------------------------- Quản lý tài koản ----------------------//
 //------- Admin -------//
 Route::middleware('auth')->group(function () {
     Route::get('list/admin', [TKAdminController::class, 'index'])->name('list/admin');
 });
+//------- Vai trò -------//
 Route::middleware('auth')->group(function () {
-    // Hiển thị danh sách vai trò
-    Route::get('list/roles', [VaiTroController::class, 'index'])->name('list.roles');
-
-    // Xử lý thêm mới và cập nhật vai trò
-    Route::post('roles/store', [VaiTroController::class, 'store'])->name('roles.store');
-    Route::post('roles/update/{id}', [VaiTroController::class, 'update'])->name('roles.update');
-    Route::delete('roles/destroy/{id}', [VaiTroController::class, 'destroy'])->name('roles.destroy');
+    Route::get('list/roles', [VaiTroController::class, 'index'])->name('list.roles'); // Hiển thị danh sách vai trò
+    // Xử lý thêm, sửa, xóa vai trò
+    Route::post('roles/store', [VaiTroController::class, 'store'])->name('roles.store');//thêm
+    Route::post('roles/update/{id}', [VaiTroController::class, 'update'])->name('roles.update');//sửa
+    Route::delete('roles/destroy/{id}', [VaiTroController::class, 'destroy'])->name('roles.destroy');//xóa
 });
-
 Route::middleware('auth')->group(function () {
     Route::resource('roles', VaiTroController::class);
 });
+// Route hiển thị form thêm tài khoản của trang admin
+Route::get('admin/create', [TKAdminController::class, 'create'])->name('admin.create');
+// Route xử lý form thêm tài khoản
+Route::post('admin/store', [TKAdminController::class, 'store'])->name('admin.store');
+// Route xử lý form xóa tài khoản
+Route::delete('admin/delete', [TKAdminController::class, 'delete'])->name('admin.delete');
+
+// -------------------------- Quản lý gia sư ----------------------//
+
 
 
 //------- Gia sư -------//
 
-<<<<<<< HEAD
 // Route để hiển thị trang hồ sơ gia sư
 Route::get('/hosogiasu', function () {
     return view('giasu.hosogiasu');
@@ -105,7 +111,7 @@ Route::post('/save-giasu', function (Request $request) {
     $giasu = new Giasu();
     $giasu->HoTen = $request->HoTen;
     $giasu->GioiTinh = $request->GioiTinh;
-    $giasu->SĐT = $request->SĐT;
+    $giasu->SDT = $request->SDT;
     $giasu->Email = $request->Email;
     $giasu->DiaChi = $request->DiaChi;
     $giasu->DiaChiHienTai = $request->DiaChiHienTai;
@@ -159,7 +165,7 @@ Route::post('/save-phuhuynh', function (Request $request) {
 
     $phuhuynh = new PhuHuynh();
     $phuhuynh->HoTen = $request->HoTen;
-    $phuhuynh->SĐT = $request->SĐT;
+    $phuhuynh->SDT = $request->SDT;
     $phuhuynh->Email = $request->Email;
     $phuhuynh->DiaChi = $request->DiaChi;
     $phuhuynh->MoTa = $request->MoTa;
@@ -179,7 +185,6 @@ Route::post('/save-phuhuynh', function (Request $request) {
 Route::get('/chinhsuathongtin', function () {
     return view('chinhsuathongtin');
 });
-=======
 // Route hiển thị form thêm tài khoản
 Route::get('admin/create', [TKAdminController::class, 'create'])->name('admin.create');
 
@@ -190,4 +195,3 @@ Route::delete('admin/delete', [TKAdminController::class, 'delete'])->name('admin
 
 
 Route::get('/', [homeController::class,'index'])->name('home');
->>>>>>> fedee5e49427ce6d90ad8ffc0990e3cf26cd4a30

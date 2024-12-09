@@ -7,7 +7,7 @@
                     <div class="col">
                         <h3 class="page-title">Tài khoản Admin</h3>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Quản lý tài khoản</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('homeadmin') }}">Quản lý tài khoản</a></li>
                             <li class="breadcrumb-item active">Tài khoản Admin</li>
                         </ul>
                     </div>
@@ -56,36 +56,39 @@
                                     </thead>
                                     <tbody>
                                     @foreach ($adminAccounts as $account)
-                                        <tr>
-                                            <td>{{ $account->TenDN }}</td>
-                                            <td>{{ $account->MatKhau }}</td>
-                                            <td>{{ $account->quanTriVien->HoTenQT ?? 'N/A' }}</td>
-                                            <td>{{ $account->quanTriVien->Email ?? 'N/A' }}</td>
-                                            <td>{{ $account->quanTriVien->SDT ?? 'N/A' }}</td>
-                                            <td>{{ $account->NgayTao }}</td>
-                                            <td>{{ $account->quanTriVien->vaiTro->TenVaiTro ?? 'N/A' }}</td>
-                                            <td>
-                                                @if ($account->TrangThaiTK === 'Hoạt động')
-                                                    <span class="badge bg-success">{{ $account->TrangThaiTK }}</span>
-                                                @elseif ($account->TrangThaiTK === 'Không hoạt động')
-                                                    <span class="badge bg-secondary">{{ $account->TrangThaiTK }}</span>
-                                                @else
-                                                    <span class="badge bg-danger">{{ $account->TrangThaiTK }}</span>
+                                    <tr>
+                                        <td>{{ $account->TenDN }}</td>
+                                        <td>@if (Session::get('TenVaiTro') === 'Super Admin')
+                                                {{ $account->MatKhau }}
+                                            @else N/A
+                                            @endif</td>
+                                        <td>{{ $account->quanTriVien->HoTenQT ?? 'N/A' }}</td>
+                                        <td>{{ $account->quanTriVien->Email ?? 'N/A' }}</td>
+                                        <td>{{ $account->quanTriVien->SDT ?? 'N/A' }}</td>
+                                        <td>{{ $account->NgayTao }}</td>
+                                        <td>{{ $account->quanTriVien->vaiTro->TenVaiTro ?? 'N/A' }}</td>
+                                        <td>
+                                            @if ($account->TrangThaiTK === 'Hoạt động')
+                                                <span class="badge bg-success">{{ $account->TrangThaiTK }}</span>
+                                            @elseif ($account->TrangThaiTK === 'Không hoạt động')
+                                                <span class="badge bg-secondary">{{ $account->TrangThaiTK }}</span>
+                                            @else
+                                                <span class="badge bg-danger">{{ $account->TrangThaiTK }}</span>
+                                            @endif
+                                        </td>
+                                        <td class="text-end">
+                                            <div class="actions">
+                                                <a href="{{ url('view/user/edit/'.$account->TenDN) }}" class="btn btn-sm bg-danger-light">
+                                                    <i class="feather-edit"></i>
+                                                </a>
+                                                @if (Session::get('TenVaiTro') === 'Super Admin')
+                                                    <button class="btn btn-sm bg-danger-light user_delete" data-bs-toggle="modal" data-bs-target="#deleteUser">
+                                                        <i class="feather-trash-2 me-1"></i>
+                                                    </button>
                                                 @endif
-                                            </td>
-                                            <td class="text-end">
-                                                <div class="actions">
-                                                    <a href="{{ url('view/user/edit/'.$account->TenDN) }}" class="btn btn-sm bg-danger-light">
-                                                        <i class="feather-edit"></i>
-                                                    </a>
-                                                    @if (Session::get('TenVaiTro') === 'Super Admin')
-                                                        <button class="btn btn-sm bg-danger-light user_delete" data-bs-toggle="modal" data-bs-target="#deleteUser">
-                                                            <i class="feather-trash-2 me-1"></i>
-                                                        </button>
-                                                    @endif
-                                                </div>
-                                            </td>
-                                        </tr>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     @endforeach
                                     </tbody>
                                 </table>
@@ -118,16 +121,14 @@
             </div>
         </div>
     </div>
-
-    @section('script')
-        <script>
-            // Xử lý khi nhấn nút xóa
-            $(document).on('click', '.user_delete', function() {
-                var userId = $(this).closest('tr').find('td:first').text(); // Lấy giá trị từ cột đầu tiên
-                $('.e_user_id').val(userId); // Gán giá trị vào input hidden
-            });
-
-        </script>
-    @endsection
 @endsection
+@section('script')
+    <script>
+        // Xử lý khi nhấn nút xóa
+        $(document).on('click', '.user_delete', function() {
+            var userId = $(this).closest('tr').find('td:first').text(); // Lấy giá trị từ cột đầu tiên
+            $('.e_user_id').val(userId); // Gán giá trị vào input hidden
+        });
 
+    </script>
+@endsection
