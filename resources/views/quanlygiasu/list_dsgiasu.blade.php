@@ -14,7 +14,7 @@
                 </div>
             </div>
 
-            {{-- message --}}
+            {{-- Hiển thị thông báo --}}
             {!! Toastr::message() !!}
 
             <div class="row">
@@ -53,9 +53,52 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-
+                                    @forelse ($dsgiasu as $giasu)
+                                        <tr>
+                                            <td>{{ $giasu->MaHoSoND }}</td>
+                                            <td>{{ $giasu->HoTen }}</td>
+                                            <td>{{ $giasu->NgaySinh ? date('d-m-Y', strtotime($giasu->NgaySinh)) : 'N/A' }}</td>
+                                            <td>{{ $giasu->GioiTinh }}</td>
+                                            <td>{{ $giasu->Email }}</td>
+                                            <td>{{ $giasu->SDT }}</td>
+                                            <td>{{ $giasu->DiaChi }}</td>
+                                            <td>
+                                                @if($giasu->Anh)
+                                                    <img src="{{ asset('storage/' . $giasu->Anh) }}" alt="Ảnh gia sư" width="50">
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </td>
+                                            <td>{{ $giasu->giaSu->TrinhDo ?? 'N/A' }}</td>
+                                            <td>{{ $giasu->giaSu->KinhNghiem ?? 'N/A' }}</td>
+                                            <td>{{ $giasu->giaSu->BangCap ?? 'N/A' }}</td>
+                                            <td class="text-end">
+{{--                                                <a href="{{ route('edit.giasu', $giasu->MaHoSoND) }}" class="btn btn-warning btn-sm">--}}
+                                                    <i class="fas fa-edit"></i> Sửa
+                                                </a>
+                                                <form action="
+{{--                                                {{ route('delete.giasu', $giasu->MaHoSoND) }}" method="POST" style="display: inline-block;--}}
+                                                ">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa gia sư này?')">
+                                                        <i class="fas fa-trash"></i> Xóa
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="12" class="text-center">Không có gia sư nào.</td>
+                                        </tr>
+                                    @endforelse
                                     </tbody>
                                 </table>
+                            </div>
+
+                            {{-- Phân trang --}}
+                            <div class="mt-4">
+                                {{ $dsgiasu->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
                     </div>
@@ -64,5 +107,3 @@
         </div>
     </div>
 @endsection
-
-

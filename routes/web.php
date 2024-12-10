@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeAdminController;
+use App\Http\Controllers\QLNguoiDung\HSGiaSuController;
 use App\Http\Controllers\QLTaiKhoan\TKAdminController;
 use App\Http\Controllers\QLTaiKhoan\VaiTroController;
 use Illuminate\Support\Facades\Route;
@@ -82,7 +83,9 @@ Route::post('admin/store', [TKAdminController::class, 'store'])->name('admin.sto
 Route::delete('admin/delete', [TKAdminController::class, 'delete'])->name('admin.delete');
 
 // -------------------------- Quản lý gia sư ----------------------//
-
+Route::middleware('auth')->group(function () {
+    Route::get('list/giasu', [HSGiaSuController::class, 'index'])->name('list.dsgiasu');
+});
 
 
 //------- Gia sư -------//
@@ -192,6 +195,9 @@ Route::get('admin/create', [TKAdminController::class, 'create'])->name('admin.cr
 Route::post('admin/store', [TKAdminController::class, 'store'])->name('admin.store');
 
 Route::delete('admin/delete', [TKAdminController::class, 'delete'])->name('admin.delete');
+//Sửa tài khoản admin
+Route::get('admin/edit/{TenDN}', [TKAdminController::class, 'edit'])->name('admin.edit');
+Route::post('admin/update/{TenDN}', [TKAdminController::class, 'update'])->name('admin.update');
 
 
 Route::get('/', [homeController::class,'index'])->name('home');

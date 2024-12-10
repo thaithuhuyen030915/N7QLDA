@@ -35,16 +35,14 @@
                 {{--                @endif--}}
 
                 <li class="submenu
-                {{set_active(['list/admin'])}}
+{{--                {{set_active(['list/admin'])}}--}}
                 ">
                     <a href="#"><i class="fas fa-graduation-cap"></i>
                         <span>Quản lý gia sư</span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                        <li><a href="
-{{--                        {{ route('list/admin') }}" class="{{ set_active(['list/admin', 'list/roles', 'admin/create']) }}--}}
-                        ">Danh sách gia sư</a></li>
+                        <li><a href="{{ route('list.dsgiasu') }}" class="{{ set_active(['list/giasu']) }}">Danh sách gia sư</a></li>
                         {{--                        <li><a href="--}}
                         {{--                        {{ route('student/add/page') }}" class="{{set_active(['student/add/page'])}}--}}
                         {{--                        ">Student Add</a></li>--}}

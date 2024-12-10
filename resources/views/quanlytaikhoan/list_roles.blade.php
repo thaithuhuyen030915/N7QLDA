@@ -12,11 +12,14 @@
                         </ul>
                     </div>
                     <div class="col-auto">
-                        <!-- Nút thêm mới vai trò -->
-                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRoleModal">
-                            <i class="fas fa-plus"></i> Thêm Vai trò
-                        </a>
+                        <!-- Nút thêm mới vai trò chỉ hiển thị cho Super Admin -->
+                        @if (Session::get('TenVaiTro') === 'Super Admin')
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRoleModal">
+                                <i class="fas fa-plus"></i> Thêm Vai trò
+                            </a>
+                        @endif
                     </div>
+
                 </div>
             </div>
 
@@ -56,25 +59,28 @@
                                             <td>{{ $role->TenVaiTro }}</td>
                                             <td>{{ $role->MoTa }}</td>
                                             <td>
-                                                <!-- Nút sửa -->
-                                                <a href="#" class="btn btn-sm btn-warning"
-                                                   data-bs-toggle="modal"
-                                                   data-bs-target="#editRoleModal"
-                                                   data-id="{{ $role->MaVT }}"
-                                                   data-name="{{ $role->TenVaiTro }}"
-                                                   data-desc="{{ $role->MoTa }}"
-                                                   data-permissions='@json($role->Quyen)'>
-                                                    <i class="fas fa-edit"></i> Sửa
-                                                </a>
+                                                <!-- Kiểm tra nếu vai trò là Super Admin -->
+                                                @if (Session::get('TenVaiTro') === 'Super Admin')
+                                                    <!-- Nút sửa -->
+                                                    <a href="#" class="btn btn-sm btn-warning"
+                                                       data-bs-toggle="modal"
+                                                       data-bs-target="#editRoleModal"
+                                                       data-id="{{ $role->MaVT }}"
+                                                       data-name="{{ $role->TenVaiTro }}"
+                                                       data-desc="{{ $role->MoTa }}"
+                                                       data-permissions='@json($role->Quyen)'>
+                                                        <i class="fas fa-edit"></i> Sửa
+                                                    </a>
 
+                                                    <!-- Nút xóa -->
+                                                    <button class="btn btn-sm btn-danger"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#deleteRoleModal"
+                                                            data-id="{{ $role->MaVT }}">
+                                                        <i class="fas fa-trash"></i> Xóa
+                                                    </button>
+                                                @endif
 
-                                                <!-- Nút xóa -->
-                                                <button class="btn btn-sm btn-danger"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#deleteRoleModal"
-                                                        data-id="{{ $role->MaVT }}">
-                                                    <i class="fas fa-trash"></i> Xóa
-                                                </button>
                                             </td>
                                         </tr>
                                     @endforeach

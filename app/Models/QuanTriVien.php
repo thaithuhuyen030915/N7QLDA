@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class QuanTriVien extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'MaQT'; // Đảm bảo cột chính là MaQT
+    public $incrementing = false; // Nếu không sử dụng auto-increment
+    protected $keyType = 'string';
 
     protected $table = 'QuanTriVien';
     public $timestamps = false; // Nếu không sử dụng các cột timestamps (created_at, updated_at)
