@@ -81,7 +81,7 @@
                      <li><a href="staff.html">Phụ huynh</a></li>
                      <li><a href="news.html">Gia sư</a></li>
                      <li><a href="gallery.html">Danh sách gia sư</a></li>
-                     <li><a href="about.html">Danh sách lớp mới</a></li>
+                     <li><a href="{{ route('lophoc') }}">Danh sách lớp mới</a></li>
                      <li><a href="contact.html">Tin tức</a></li>
                   </ul>
                   <a href="#" class="btn-book btn btn-secondary btn-sm menu-absolute">Về chúng tôi</a>
