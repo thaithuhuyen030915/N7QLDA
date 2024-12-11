@@ -75,6 +75,7 @@
                         <select id="TrangThai" name="TrangThai" class="form-control" required>
                             <option value="Hoạt động">Hoạt động</option>
                             <option value="Không hoạt động">Không hoạt động</option>
+                            <option value="Khóa">Khóa</option>
                         </select>
                     </div>
                 </div>
@@ -82,6 +83,7 @@
                 <div class="form-group row">
                     <div class="col-md-9 offset-md-3">
                         <button type="submit" class="btn btn-primary">Thêm tài khoản</button>
+                        <a href="{{ route('list/admin') }}" class="btn btn-secondary">Quay lại</a>
                     </div>
                 </div>
             </form>

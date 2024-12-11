@@ -1,6 +1,5 @@
 <?php
 
-// app/Http/Controllers/QLTaiKhoan/TKAdminController.php
 
 namespace App\Http\Controllers\QLTaiKhoan;
 
@@ -9,6 +8,7 @@ use App\Models\QuanTriVien;
 use App\Models\TaiKhoan;
 use App\Models\VaiTro; // Nếu bạn cần gắn vai trò cho tài khoản
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TKAdminController extends Controller
 {
@@ -57,21 +57,68 @@ class TKAdminController extends Controller
         // Chuyển hướng về trang danh sách tài khoản với thông báo thành công
         return redirect()->route('list/admin')->with('success', 'Tài khoản quản trị viên đã được tạo thành công!');
     }
+    public function edit($TenDN)
+    {
+        $account = TaiKhoan::with('quanTriVien.vaiTro')->where('TenDN', $TenDN)->first();
+
+        if (!$account) {
+            return redirect()->route('list.admin')->with('error', 'Tài khoản không tồn tại.');
+        }
+
+        $roles = VaiTro::all(); // Lấy danh sách vai trò
+        return view('quanlytaikhoan.edit_admin', compact('account', 'roles'));
+    }
+
+    public function update(Request $request, $TenDN)
+    {
+        $request->validate([
+            'HoTenQT' => 'required|string|max:255',
+            'Email' => 'required|email|max:255',
+            'SDT' => 'required|digits_between:10,11',
+            'TenVaiTro' => 'required|exists:VaiTro,MaVT',
+            'TrangThaiTK' => 'required|in:Hoạt động,Không hoạt động,Khóa', // Validate trạng thái
+        ]);
+
+        $taiKhoan = TaiKhoan::where('TenDN', $TenDN)->first();
+        $quanTriVien = QuanTriVien::where('TenDN', $TenDN)->first();
+
+        if (!$taiKhoan || !$quanTriVien) {
+            return redirect()->route('list/admin')->with('error', 'Tài khoản không tồn tại.');
+        }
+
+        // Cập nhật thông tin tài khoản và quản trị viên
+        $taiKhoan->update(['TrangThaiTK' => $request->TrangThaiTK]);
+        $quanTriVien->update([
+            'HoTenQT' => $request->HoTenQT,
+            'Email' => $request->Email,
+            'SDT' => $request->SDT,
+            'MaVT' => $request->TenVaiTro,
+        ]);
+
+        return redirect()->route('list/admin')->with('success', 'Tài khoản đã được cập nhật thành công.');
+    }
+
 
     public function delete(Request $request)
     {
         $tenDN = $request->input('TenDN'); // Nhận giá trị TenDN từ input hidden
 
-        // Tìm tài khoản theo tên đăng nhập
-        $taiKhoan = TaiKhoan::where('TenDN', $tenDN)->first();
+        // Bắt đầu transaction để đảm bảo dữ liệu nhất quán
+        DB::transaction(function () use ($tenDN) {
+            // Xóa bản ghi liên quan trong bảng quantrivien (nếu có)
+            QuanTriVien::where('TenDN', $tenDN)->delete();
 
-        if ($taiKhoan) {
-            $taiKhoan->delete(); // Xóa tài khoản
-            return redirect()->route('list.admin')->with('success', 'Tài khoản đã được xóa thành công.');
-        }
+            // Tìm tài khoản theo tên đăng nhập
+            $taiKhoan = TaiKhoan::where('TenDN', $tenDN)->first();
 
-        return redirect()->route('list.admin')->with('error', 'Tài khoản không tồn tại.');
+            if ($taiKhoan) {
+                $taiKhoan->delete(); // Xóa tài khoản
+            }
+        });
+
+        return redirect()->route('list/admin')->with('success', 'Tài khoản đã được xóa thành công.');
     }
+
 
     // Danh sách tài khoản admin
     public function index()
