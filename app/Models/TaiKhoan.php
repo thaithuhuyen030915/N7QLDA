@@ -10,7 +10,7 @@ class TaiKhoan extends Model implements AuthenticatableContract
 {
     use Authenticatable;
 
-    protected $table = 'TaiKhoan'; // Tên bảng
+    protected $table = 'taikhoan'; // Tên bảng
     protected $primaryKey = 'TenDN'; // Khóa chính
     public $incrementing = false; // Nếu khóa chính không phải auto-increment
     public $timestamps = false; // Nếu không sử dụng các cột timestamps (created_at, updated_at)

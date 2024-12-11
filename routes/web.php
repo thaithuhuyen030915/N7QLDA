@@ -34,12 +34,18 @@ Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+// use App\Http\Controllers\Auth\ClientLoginController;
+// Route::get('/login', [ClientLoginController::class, 'login'])->name('login');
+// Route::post('/authenticate', [ClientLoginController::class, 'authenticate'])->name('authenticate');
+// Route::post('/logout', [ClientLoginController::class, 'logout'])->name('logout');
+
 // ----------------------------Đăng ký ------------------------------//
 use App\Http\Controllers\Auth\RegisterController;
     // Hiển thị form đăng ký
-Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
     // Xử lý đăng ký
-Route::post('register', [RegisterController::class, 'register']);
+Route::post('/register', [RegisterController::class, 'register']);
+
 
 
 // -------------------------- main dashboard ----------------------//
