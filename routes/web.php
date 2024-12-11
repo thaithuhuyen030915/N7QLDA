@@ -46,16 +46,13 @@ Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-<<<<<<< HEAD
 // use App\Http\Controllers\Auth\ClientLoginController;
 // Route::get('/login', [ClientLoginController::class, 'login'])->name('login');
 // Route::post('/authenticate', [ClientLoginController::class, 'authenticate'])->name('authenticate');
 // Route::post('/logout', [ClientLoginController::class, 'logout'])->name('logout');
 
 // ----------------------------Đăng ký ------------------------------//
-=======
 // ----------------------------Đăng ký tài khoản khách------------------------------//
->>>>>>> 68c924fbd2eb5be80683ad5df4869951ff460f15
 use App\Http\Controllers\Auth\RegisterController;
     // Hiển thị form đăng ký
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
