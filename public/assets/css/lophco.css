@@ -1,0 +1,89 @@
+.container {
+    width: 90%;
+    margin: auto;
+}
+
+.filter-bar {
+    margin-bottom: 20px;
+}
+
+.filter-bar select,
+.filter-bar button {
+    margin-right: 10px;
+}
+
+.class-list {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.class-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    gap: 100px; /* Tạo khoảng cách giữa các cột */
+}
+
+.class-item:last-child {
+    border-bottom: none;
+}
+.class-img {
+    text-align: center;
+}
+
+.class-info {
+    flex: 3;
+    margin-right: 5px;
+}
+
+.class-info h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.class-info p {
+    margin: 5px 0;
+    color: #666;
+    font-size: 14px;
+}
+.class-fee {
+    flex: 2; /* Chiếm 2 phần không gian */
+}
+
+.class-fee p {
+    font-size: 16px;
+    color: #007bff;
+}
+
+
+.class-action a.btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.class-action a.btn:hover {
+    background-color: #0056b3;
+}
+@media (max-width: 768px) {
+    .class-item {
+        flex-direction: column; /* Chuyển các cột thành hàng khi màn hình nhỏ */
+        gap: 10px;
+    }
+
+    .class-info {
+        flex: none; /* Đặt lại kích thước cho cột khi màn hình nhỏ */
+        width: 100%; /* Chiếm toàn bộ chiều rộng */
+    }
+
+    .class-fee, .class-action {
+        flex: none;
+        width: 100%;
+    }
+}

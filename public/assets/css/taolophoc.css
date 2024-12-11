@@ -1,0 +1,37 @@
+body {
+    padding: 20px;
+    background-color: #e1f5f8; /* Màu xanh dương nhạt */
+    padding: 20px;
+}
+
+
+.form-container {
+    background: #e3f1fb;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.form-header {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-section-title {
+    font-weight: bold;
+    margin-top: 20px;
+    color: #666;
+}
+
+.time-table th,
+.time-table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.time-table .form-check-input {
+    margin: 0 auto;
+}

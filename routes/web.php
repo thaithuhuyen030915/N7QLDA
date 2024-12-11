@@ -87,6 +87,24 @@ Route::middleware('auth')->group(function () {
     Route::get('list/giasu', [HSGiaSuController::class, 'index'])->name('list.dsgiasu');
 });
 
+//----------------------------Tạo và hiển thị danh sách lớp học----------
+Route::get('lophoc', [LophocController::class, 'index'])->name('lophoc');
+//-------------------Đề nghị dạy----------------------
+use App\Http\Controllers\DenghiController;
+Route::get('/denghi/create/{MaLop}', [DenghiController::class, 'create'])->name('denghi.create');
+
+//---------------------Tạo lớp học mới--------------------------
+// use App\Http\Controllers\LopHoc\TaolophocController;
+Route::get('/lophoc/create', [LopHocController::class, 'create'])->name('lophoc.create');
+Route::post('/lophoc/store', [LopHocController::class, 'store'])->name('lophoc.store');
+
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/taolophoc', [TaolophocController::class, 'create'])->name('taolophoc.create');
+//     Route::post('/taolophoc', [TaolophocController::class, 'store'])->name('taolophoc.store');
+//  });
+//-----------------------danh sách lớp đã tạo của hồ sơ phụ huynh
+Route::get('/phuhuynh/{MaHoSoPH}/lophoc', [LopHocController::class, 'lopdatao'])->name('phuhuynh.lophoc');
+
 
 //------- Gia sư -------//
 
