@@ -26,11 +26,6 @@
                                     <div class="col">
                                         <h3 class="page-title">Danh sách gia sư</h3>
                                     </div>
-                                    <div class="col-auto text-end float-end ms-auto download-grp">
-                                        <a href="#" class="btn btn-primary">
-                                            <i class="fas fa-plus"></i> Thêm gia sư
-                                        </a>
-                                    </div>
                                 </div>
                             </div>
 
@@ -45,7 +40,6 @@
                                         <th>Email</th>
                                         <th>SĐT</th>
                                         <th>Địa chỉ</th>
-                                        <th>Ảnh</th>
                                         <th>Trình độ</th>
                                         <th>Kinh nghiệm</th>
                                         <th>Bằng cấp</th>
@@ -62,29 +56,22 @@
                                             <td>{{ $giasu->Email }}</td>
                                             <td>{{ $giasu->SDT }}</td>
                                             <td>{{ $giasu->DiaChi }}</td>
-                                            <td>
-                                                @if($giasu->Anh)
-                                                    <img src="{{ asset('storage/' . $giasu->Anh) }}" alt="Ảnh gia sư" width="50">
-                                                @else
-                                                    N/A
-                                                @endif
-                                            </td>
                                             <td>{{ $giasu->giaSu->TrinhDo ?? 'N/A' }}</td>
                                             <td>{{ $giasu->giaSu->KinhNghiem ?? 'N/A' }}</td>
                                             <td>{{ $giasu->giaSu->BangCap ?? 'N/A' }}</td>
                                             <td class="text-end">
-{{--                                                <a href="{{ route('edit.giasu', $giasu->MaHoSoND) }}" class="btn btn-warning btn-sm">--}}
-                                                    <i class="fas fa-edit"></i> Sửa
-                                                </a>
-                                                <form action="
-{{--                                                {{ route('delete.giasu', $giasu->MaHoSoND) }}" method="POST" style="display: inline-block;--}}
-                                                ">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa gia sư này?')">
-                                                        <i class="fas fa-trash"></i> Xóa
-                                                    </button>
-                                                </form>
+                                                <div class="actions">
+                                                    @if (Session::get('TenVaiTro') === 'Super Admin')
+                                                        <a
+                                                           class="btn btn-sm bg-warning-light
+                                                        ">
+                                                            <i class="feather-edit"></i>
+                                                        </a>
+                                                        <button type="button" class="btn btn-sm bg-danger-light user_delete" data-id="" data-bs-toggle="modal" data-bs-target="#deleteUser">
+                                                            <i class="feather-trash-2 me-1"></i>
+                                                        </button>
+                                                    @endif
+                                                </div>
                                             </td>
                                         </tr>
                                     @empty

@@ -9,11 +9,16 @@ class Nguoidung extends Model
 {
     use HasFactory;
 
+<<<<<<< HEAD
+    protected $table = 'nguoidung'; // Tên bảng trong cơ sở dữ liệu
+    public $timestamps = false; // Vô hiệu hóa timestamps
+=======
     protected $table = 'nguoidung'; // Tên bảng
     protected $primaryKey = 'MaHoSoND'; // Khóa chính
     public $incrementing = false; // Khóa chính không tự tăng
     public $timestamps = false; // Không sử dụng timestamps
 
+>>>>>>> 68c924fbd2eb5be80683ad5df4869951ff460f15
     protected $fillable = [
         'MaHoSoND',
         'HoTen',
@@ -27,6 +32,12 @@ class Nguoidung extends Model
         'LoaiNguoiDung',
         'TenDN',
     ];
+    
+    // Liên kết với bảng TaiKhoan (FK: TenDN)
+    public function taikhoan()
+    {
+        return $this->belongsTo(TaiKhoan::class, 'TenDN', 'TenDN');
+    }
 
     // Quan hệ 1-1 với GiaSu
     public function giaSu()
@@ -34,6 +45,12 @@ class Nguoidung extends Model
         return $this->hasOne(Giasu::class, 'MaHoSoGS', 'MaHoSoND');
     }
 
+<<<<<<< HEAD
+     // Quan hệ với bảng PhuHuynh
+    public function phuhuynh()
+    {
+        return $this->hasOne(PhuHuynh::class, 'MaHoSoPH', 'MaHoSoND');
+=======
     // Event observer cho model
     protected static function boot()
     {
@@ -51,5 +68,7 @@ class Nguoidung extends Model
                 ]);
             }
         });
+>>>>>>> 68c924fbd2eb5be80683ad5df4869951ff460f15
     }
 }
+?>
