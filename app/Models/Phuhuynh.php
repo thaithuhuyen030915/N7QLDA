@@ -10,15 +10,22 @@ class PhuHuynh extends Model
 
     protected $table = 'phuhuynh'; // Tên bảng
     protected $primaryKey = 'MaHoSoPH'; // Đặt khóa chính
+    public $timestamps = false; // Nếu bạn ko muốn sử dụng created_at và updated_at
 
     protected $fillable = [
-        'HoTen',
-        'SĐT',
-        'Email',
-        'DiaChi',
-        'Anh',
-        'MoTa',
+        'MaHoSoPH',
+        'LoaiNguoiDung',
+        'CCCD',
+        // 'HoTen',
+        // 'SDT',
+        // 'Email',
+        // 'DiaChi',
+        // 'Anh',
+        // 'Mota',
     ];
-
-    public $timestamps = true; // Nếu bạn muốn sử dụng created_at và updated_at
+    
+    public function Nguoidung(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(NguoiDung::class, 'MaHoSoPH', 'MaHoSoND');
+    }
 }

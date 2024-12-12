@@ -108,7 +108,12 @@
 </head>
 <body>
     <div class="sidebar">
-        <h1>{{ Auth::user()->TenDN }}</h1> <!-- Hiển thị tên người dùng -->
+        @if(Auth::check())
+            <h1>{{ Auth::user()->TenDN }}</h1> <!-- Hiển thị tên người dùng -->
+        @else
+            <h1>Vui lòng đăng nhập</h1> <!-- Hiển thị nếu người dùng chưa đăng nhập -->
+        @endif
+        
         <button>Bật thông báo</button>
         <a href="#">Quản lý chung</a>
         <a href="#">Danh sách gia sư</a>

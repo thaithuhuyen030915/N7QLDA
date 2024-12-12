@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\TaiKhoan;
 use App\Models\NguoiDung;
+use App\Models\PhuHuynh;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -57,7 +58,23 @@ class RegisterController extends Controller
                 'TenDN' => $taiKhoan->TenDN,
             ]);
 
+            // Nếu loại tài khoản là Phụ huynh, thêm thông tin vào bảng PhuHuynh
+            if ($request->LoaiTK === 'Phụ huynh') {
+            PhuHuynh::create([
+                'MaHoSoPH' => $maHoSo, // Sử dụng MaHoSoND làm MaHoSoPhuHuynh
+                'LoaiNguoiDung' => $request->LoaiTK,
+                'CCCD' => $request->input('CCCD', null), // Thêm các trường nếu cần
+                'HoTen' => $request->input('HoTen', null), // Các trường khác nếu có
+                'SĐT' => $request->input('SĐT', null),
+                'Email' => $request->input('Email', null),
+                'DiaChi' => $request->input('DiaChi', null),
+                'Anh' => $request->input('Anh', null),
+                'MoTa' => $request->input('MoTa', null),
+            ]);
+        }
+
             DB::commit(); // Lưu thay đổi vào database
+
 
             // Điều hướng dựa trên loại tài khoản
             if ($request->LoaiTK === 'Gia sư') {
