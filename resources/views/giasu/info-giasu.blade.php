@@ -166,9 +166,7 @@
 
         <button type="submit">Lưu thay đổi</button>
     </div>
-    </form>
-
-    </form>
+</form>
 </div>
 </body>
 </html>
