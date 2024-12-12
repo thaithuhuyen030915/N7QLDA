@@ -219,10 +219,10 @@
                                 <option value="Giáo viên" {{ session('GioiTinh') == 'Giáo viên' ? 'selected' : '' }}>Giáo viên</option>
                             </select>
 
-                    <label for="HoTen">Trường đang học:</label>
+                    <label for="HoTen">Nơi học tập/công tác:</label>
                     <input type="text" id="HoTen" name="HoTen" value="{{ session('HoTen', '') }}" required/>
 
-                    <label for="NgaySinh">Sinh viên năm:</label>
+                    <label for="NgaySinh">Bằng cấp:</label>
                     <input type="text" id="NgaySinh" name="NgaySinh" value="{{ session('NgaySinh', '') }}" required/>
 
                     <label for="SDT">Chuyên ngành:</label>
