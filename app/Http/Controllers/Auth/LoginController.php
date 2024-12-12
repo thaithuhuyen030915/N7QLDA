@@ -3,24 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\QuanTriVien;
-use App\Providers\RouteServiceProvider;
-//use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\TaiKhoan;
 use Brian2694\Toastr\Facades\Toastr;
 
 class LoginController extends Controller
 {
-//    use AuthenticatesUsers;
-
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-
     /**
      * Hiển thị trang đăng nhập.
      */
@@ -50,6 +42,7 @@ class LoginController extends Controller
             $user = TaiKhoan::where('TenDN', $username)->first();
 
             if ($user && $user->MatKhau === $password) {
+<<<<<<< HEAD
                 // Kiểm tra loại tài khoản phải là QTV
                 if ($user->LoaiTK === 'QTV') {
                     // Lưu thông tin đăng nhập vào session
@@ -115,19 +108,45 @@ class LoginController extends Controller
                 } else {
                     //Sai thông tin đăng nhập
                     Toastr::error('Tên đăng nhập hoặc mật khẩu không đúng.', 'Lỗi');
+=======
+                // Kiểm tra trạng thái tài khoản
+                if ($user->TrangThaiTK !== 'Hoạt động') {
+                    Toastr::error('Tài khoản của bạn đang ở trạng thái: ' . $user->TrangThaiTK, 'Lỗi');
+>>>>>>> 069606fc02b0e68cb8ed911b5ae4ba9e4dda979b
                     DB::rollBack();
-                    return redirect()->back();
+                    return redirect()->back()->withInput();
+                }
+
+                // Phân loại tài khoản
+                if ($user->LoaiTK === 'QTV') {
+                    $this->handleAdminLogin($user);
+                    return redirect()->intended('homeadmin');
+                } elseif ($user->LoaiTK === 'Phụ huynh') {
+                    $maHoSo = $this->handleParentLogin($username, $user);
+                    if ($maHoSo) {
+                        return redirect('/classroom/' . $maHoSo);
+                    }
+                } elseif ($user->LoaiTK === 'Gia sư') {
+                    $maHoSo = $this->handleTutorLogin($username, $user);
+                    if ($maHoSo) {
+                        return redirect('/hosogiasu/' . $maHoSo);
+                    }
                 }
             }
-        }catch (\Illuminate\Validation\ValidationException $e) {
+            // Sai tên đăng nhập hoặc mật khẩu
+            Toastr::error('Tên đăng nhập hoặc mật khẩu không đúng.', 'Lỗi');
+            DB::rollBack();
+            return redirect()->back()->withInput();
+        } catch (\Exception $e) {
             DB::rollBack();
             Toastr::error('Đã xảy ra lỗi trong quá trình đăng nhập.', 'Lỗi');
-            return redirect()->back();
+            return redirect()->back()->withInput();
         }
     }
+    
 
     /**
-     * Xử lý logic đăng xuất.
+     * Xử lý đăng xuất.
      */
     public function logout(Request $request)
     {
@@ -136,4 +155,90 @@ class LoginController extends Controller
         Toastr::success('Đăng xuất thành công!', 'Thành công');
         return redirect('login'); // Quay lại trang đăng nhập
     }
+
+    /**
+     * Xử lý đăng nhập cho tài khoản quản trị viên.
+     */
+    private function handleAdminLogin($user)
+    {
+        Auth::login($user);
+        Session::put('TenDN', $user->TenDN);
+        Session::put('LoaiTK', $user->LoaiTK);
+        Session::put('NgayTao', $user->NgayTao);
+        Session::put('TrangThaiTK', $user->TrangThaiTK);
+        Toastr::success('Chào mừng Quản trị viên!', 'Thành công');
+        DB::commit();
+    }
+
+    /**
+     * Xử lý đăng nhập cho tài khoản phụ huynh.
+     */
+    private function handleParentLogin($username, $user)
+    {
+        $maHoSo = DB::table('phuhuynh')
+            ->join('nguoidung', 'phuhuynh.MaHoSoPH', '=', 'nguoidung.MaHoSoND')
+            ->where('nguoidung.TenDN', $username)
+            ->value('MaHoSoPH');
+
+        if (!$maHoSo) {
+            Toastr::error('Không tìm thấy thông tin phụ huynh.', 'Lỗi');
+            DB::rollBack();
+            return null;
+        }
+
+        Auth::login($user);
+        Session::put('TenDN', $user->TenDN);
+        Session::put('LoaiTK', $user->LoaiTK);
+        Session::put('NgayTao', $user->NgayTao);
+        Session::put('TrangThaiTK', $user->TrangThaiTK);
+        Toastr::success('Chào mừng Phụ huynh!', 'Thành công');
+        DB::commit();
+
+        return $maHoSo;
+    }
+
+    /**
+     * Xử lý đăng nhập cho tài khoản gia sư.
+     */
+    private function handleTutorLogin($username, $user)
+    {
+        $maHoSo = DB::table('giasu')
+            ->join('nguoidung', 'giasu.MaHoSoGS', '=', 'nguoidung.MaHoSoND')
+            ->where('nguoidung.TenDN', $username)
+            ->value('MaHoSoGS');
+
+        if (!$maHoSo) {
+            Toastr::error('Không tìm thấy thông tin gia sư.', 'Lỗi');
+            DB::rollBack();
+            return null;
+        }
+
+        Auth::login($user);
+        Session::put('TenDN', $user->TenDN);
+        Session::put('LoaiTK', $user->LoaiTK);
+        Session::put('NgayTao', $user->NgayTao);
+        Session::put('TrangThaiTK', $user->TrangThaiTK);
+        Toastr::success('Chào mừng Gia sư!', 'Thành công');
+        DB::commit();
+
+        return $maHoSo;
+    }
+
+    public function showTutorProfile($maHoSo)
+    {
+        // Lấy thông tin gia sư từ bảng giasu dựa vào mã hồ sơ
+        $giaSu = DB::table('giasu')
+            ->join('nguoidung', 'giasu.MaHoSoGS', '=', 'nguoidung.MaHoSoND')
+            ->where('giasu.MaHoSoGS', $maHoSo)
+            ->first();
+    
+        if (!$giaSu) {
+            Toastr::error('Không tìm thấy thông tin gia sư.', 'Lỗi');
+            return redirect()->route('home');
+        }
+    
+        return view('giasu.hosogiasu', compact('giaSu'));
+    }
+    
+
 }

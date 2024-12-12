@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\HomeAdminController;
+use App\Http\Controllers\LopHoc\LophocController;
 use App\Http\Controllers\QLNguoiDung\HSGiaSuController;
 use App\Http\Controllers\QLTaiKhoan\TKAdminController;
 use App\Http\Controllers\QLTaiKhoan\VaiTroController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GiasuController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\LopHoc\TaolophocController;
 //use Illuminate\Http\Request;
 use App\Models\Giasu;
 use App\Models\PhuHuynh;
@@ -47,6 +49,7 @@ Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+<<<<<<< HEAD
     // đăng nhập tài khoản gia sư
     Route::group(['middleware'=>'auth'],function()
     {
@@ -64,6 +67,42 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
         });
     });
     
+=======
+Route::get('/classroom/{maHoSo}', function ($maHoSo) {
+    return view('phuhuynh.classroom', ['maHoSo' => $maHoSo]);
+});
+
+Route::get('/hosogiasu/{maHoSo}', function ($maHoSo) {
+    return view('giasu.hosogiasu', ['maHoSo' => $maHoSo]);
+});
+Route::get('/hosogiasu/{maHoSo}', [LoginController::class, 'showTutorProfile'])->name('hosogiasu');
+
+    // // đăng nhập tài khoản gia sư
+    // Route::group(['middleware'=>'auth'],function()
+    // {
+    //     Route::get('/hosogiasu/{MaHoSoGS}',function()
+    //     {
+    //         return view('giasu.hosogiasu');
+    //     });
+    // });
+    // // đăng nhập tài khoản phụ huynh
+    // Route::group(['middleware'=>'auth'],function()
+    // {
+    //     Route::get('/classroom/{MaHoSoPH}',function()
+    //     {
+    //         return view('phuhuynh.classroom');
+    //     });
+    // });
+
+
+    // Route::get('/classroom', function () {
+    //     return view('phuhuynh.classroom');
+    // });
+    // Route::get('/phuhuynh/chinhsuathongtin', function () {
+    //     return view('phuhuynh.chinhsuathongtin');
+    // });
+
+>>>>>>> 069606fc02b0e68cb8ed911b5ae4ba9e4dda979b
 
 
 // ----------------------------Đăng ký tài khoản ------------------------------//
@@ -72,23 +111,23 @@ use App\Http\Controllers\Auth\RegisterController;
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
     // Xử lý đăng ký
 Route::post('/register', [RegisterController::class, 'register']);
-        
-    // đăng ký tài khoản gia sư
-    Route::group(['middleware'=>'auth'],function()
-    {
-        Route::get('/hosogiasu/{MaHoSoGS}',function()
-        {
-            return view('giasu.hosogiasu');
-        });
-    });
-    // đăng nhập tài khoản phụ huynh
-    Route::group(['middleware'=>'auth'],function()
-    {
-        Route::get('/phuhuynh/{MaHoSoPH}',function()
-        {
-            return view('phuhuynh.chinhsuathongtin');
-        });
-    });
+
+    // // đăng ký tài khoản gia sư
+    // Route::group(['middleware'=>'auth'],function()
+    // {
+    //     Route::get('/hosogiasu/{MaHoSoGS}',function()
+    //     {
+    //         return view('giasu.hosogiasu');
+    //     });
+    // });
+    // // đăng nhập tài khoản phụ huynh
+    // Route::group(['middleware'=>'auth'],function()
+    // {
+    //     Route::get('/phuhuynh/{MaHoSoPH}',function()
+    //     {
+    //         return view('phuhuynh.chinhsuathongtin');
+    //     });
+    // });
 
 
 
@@ -133,17 +172,13 @@ Route::get('/denghi/create/{MaLop}', [DenghiController::class, 'create'])->name(
 
 //---------------------Tạo lớp học mới--------------------------
 // use App\Http\Controllers\LopHoc\TaolophocController;
-Route::get('/lophoc/create', [LopHocController::class, 'create'])->name('lophoc.create');
-Route::post('/lophoc/store', [LopHocController::class, 'store'])->name('lophoc.store');
-
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/taolophoc', [TaolophocController::class, 'create'])->name('taolophoc.create');
-//     Route::post('/taolophoc', [TaolophocController::class, 'store'])->name('taolophoc.store');
-//  });
+Route::get('/lophoc/create', [LophocController::class, 'create'])->name('lophoc.create');
+Route::post('/lophoc/store', [LophocController::class, 'store'])->name('lophoc.store');
 //-----------------------danh sách lớp đã tạo của hồ sơ phụ huynh
 Route::get('/phuhuynh/{MaHoSoPH}/lophoc', [LopHocController::class, 'lopdatao'])->name('phuhuynh.lophoc');
 
 
+<<<<<<< HEAD
 //------- Kết nối cơ sở dữ liệu -------//
 use Illuminate\Support\Facades\DB;
 
@@ -158,6 +193,50 @@ Route::get('/db-check', function () {
 
 //------- Gia sư -------//
 
+=======
+//------- Gia sư -------//
+Route::get('/info-giasu', function() {
+    return view('giasu.info-giasu'); // Đây là view bạn đã tạo
+})->name('info-giasu');
+// Route để lưu thông tin gia sư
+Route::post('/save-giasu', function (Request $request) {
+    // Xác thực dữ liệu
+    $request->validate([
+        'HoTen' => 'required|string|max:255',
+        'GioiTinh' => 'required|string',
+        'SĐT' => 'required|string|max:15',
+        'Email' => 'required|email|unique:giasu,Email',
+        'DiaChi' => 'required|string|max:255',
+        'DiaChiHienTai' => 'required|string|max:255',
+        'MoTa' => 'required|string',
+        'ThanhTich' => 'required|string',
+        'Anh' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+
+    // Tạo đối tượng giasu mới
+    $giasu = new Giasu();
+    $giasu->HoTen = $request->HoTen;
+    $giasu->GioiTinh = $request->GioiTinh;
+    $giasu->SDT = $request->SDT;
+    $giasu->Email = $request->Email;
+    $giasu->DiaChi = $request->DiaChi;
+    $giasu->DiaChiHienTai = $request->DiaChiHienTai;
+    $giasu->MoTa = $request->MoTa;
+    $giasu->ThanhTich = $request->ThanhTich;
+
+    // Xử lý upload ảnh
+    if ($request->hasFile('Anh')) {
+        $fileName = time() . '.' . $request->Anh->extension();
+        $request->Anh->move(public_path('uploads'), $fileName);
+        $giasu->Anh = $fileName;
+    }
+
+    $giasu->save();
+
+    return redirect()->back()->with('success', 'Thông tin đã được lưu thành công!');
+});
+
+>>>>>>> 069606fc02b0e68cb8ed911b5ae4ba9e4dda979b
 //------- Phụ huynh -------//
 
 Route::get('/classroom', function () {
