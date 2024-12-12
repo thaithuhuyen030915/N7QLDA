@@ -35,7 +35,7 @@ class RegisterController extends Controller
             // Tạo tài khoản mới
             $taiKhoan = TaiKhoan::create([
                 'TenDN' => $request->TenDN,
-                'MatKhau' => Hash::make($request->MatKhau),
+                'MatKhau' => $request->MatKhau,
                 'LoaiTK' => $request->LoaiTK,
                 'NgayTao' => now(),
                 'TrangThaiTK' => 'Hoạt động',
