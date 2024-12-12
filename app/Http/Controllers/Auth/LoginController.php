@@ -42,77 +42,9 @@ class LoginController extends Controller
             $user = TaiKhoan::where('TenDN', $username)->first();
 
             if ($user && $user->MatKhau === $password) {
-<<<<<<< HEAD
-                // Kiểm tra loại tài khoản phải là QTV
-                if ($user->LoaiTK === 'QTV') {
-                    // Lưu thông tin đăng nhập vào session
-                    Auth::login($user);
-                    Session::put('TenDN', $user->TenDN);
-                    Session::put('LoaiTK', $user->LoaiTK);
-                    Session::put('NgayTao', $user->NgayTao);
-                    Session::put('TrangThaiTK', $user->TrangThaiTK);
-
-                    // Lấy thông tin quản trị viên và vai trò của họ
-                    $admin = QuanTriVien::where('TenDN', $username)->first();
-                    if ($admin) {
-                        $role = $admin->vaiTro ? $admin->vaiTro->TenVaiTro : 'Chưa xác định';
-                        Session::put('TenVaiTro', $role); // Lưu tên vai trò vào session
-                    }
-
-                    Toastr::success('Đăng nhập thành công!', 'Thành công');
-                    DB::commit();
-                    return redirect()->intended('homeadmin'); // Chuyển đến trang home
-                } 
-                elseif ($user->LoaiTK === 'Phụ huynh') {
-                    // Xử lý đăng nhập phụ huynh
-                    $maHoSo = DB::table('phuhuynh')
-                    ->join('nguoidung', 'phuhuynh.MaHoSoPH', '=', 'nguoidung.MaHoSoND')
-                    ->where('nguoidung.TenDN', $username)
-                    ->value('MaHoSoPH');
-                    if (!$maHoSo) {
-                        // Nếu không tìm thấy mã hồ sơ, xử lý lỗi
-                        Toastr::error('Không tìm thấy thông tin phụ huynh.', 'Lỗi');
-                        return redirect()->back();
-                    }
-                    // Lưu thông tin đăng nhập vào session
-                    Auth::login($user);
-                    Session::put('TenDN', $user->TenDN);
-                    Session::put('LoaiTK', $user->LoaiTK);
-                    Session::put('NgayTao', $user->NgayTao);
-                    Session::put('TrangThaiTK', $user->TrangThaiTK);
-
-                    Toastr::success('Chào mừng phụ huynh!', 'Thành công');
-                    DB::commit();
-                    return redirect('/classroom/' . $maHoSo);
-                } elseif ($user->LoaiTK === 'Gia sư'){
-                    // Xử lý đăng nhập gia sư
-                    // Tìm mã hồ sơ của gia sư dựa trên tên đăng nhập
-                    $maHoSo = DB::table('giasu')
-                    ->join('nguoidung', 'giasu.MaHoSoGS', '=', 'nguoidung.MaHoSoND')
-                    ->where('nguoidung.TenDN', $username)
-                    ->value('MaHoSoGS');
-                    if (!$maHoSo) {
-                        // Nếu không tìm thấy mã hồ sơ, xử lý lỗi
-                        Toastr::error('Không tìm thấy thông tin gia sư.', 'Lỗi');
-                        return redirect()->back();
-                    }
-                    // Lưu thông tin đăng nhập vào session
-                    Auth::login($user);
-                    Session::put('TenDN', $user->TenDN);
-                    Session::put('LoaiTK', $user->LoaiTK);
-                    Session::put('NgayTao', $user->NgayTao);
-                    Session::put('TrangThaiTK', $user->TrangThaiTK);
-                    Toastr::success('Chào mừng gia sư!', 'Thành công');
-                    DB::commit();
-                    return redirect('/hosogiasu/' . $maHoSo);
-                } else {
-                    //Sai thông tin đăng nhập
-                    Toastr::error('Tên đăng nhập hoặc mật khẩu không đúng.', 'Lỗi');
-=======
                 // Kiểm tra trạng thái tài khoản
                 if ($user->TrangThaiTK !== 'Hoạt động') {
                     Toastr::error('Tài khoản của bạn đang ở trạng thái: ' . $user->TrangThaiTK, 'Lỗi');
->>>>>>> 069606fc02b0e68cb8ed911b5ae4ba9e4dda979b
                     DB::rollBack();
                     return redirect()->back()->withInput();
                 }
