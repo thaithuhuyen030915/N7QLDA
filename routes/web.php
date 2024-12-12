@@ -162,51 +162,16 @@ Route::get('/phuhuynh/{MaHoSoPH}/lophoc', [LopHocController::class, 'lopdatao'])
 Route::get('/info-giasu', function() {
     return view('giasu.info-giasu'); // Đây là view bạn đã tạo
 })->name('info-giasu');
-// Route để lưu thông tin gia sư
-Route::post('/save-giasu', function (Request $request) {
-    // Xác thực dữ liệu
-    $request->validate([
-        'HoTen' => 'required|string|max:255',
-        'GioiTinh' => 'required|string',
-        'SĐT' => 'required|string|max:15',
-        'Email' => 'required|email|unique:giasu,Email',
-        'DiaChi' => 'required|string|max:255',
-        'DiaChiHienTai' => 'required|string|max:255',
-        'MoTa' => 'required|string',
-        'ThanhTich' => 'required|string',
-        'Anh' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
 
-    // Tạo đối tượng giasu mới
-    $giasu = new Giasu();
-    $giasu->HoTen = $request->HoTen;
-    $giasu->GioiTinh = $request->GioiTinh;
-    $giasu->SDT = $request->SDT;
-    $giasu->Email = $request->Email;
-    $giasu->DiaChi = $request->DiaChi;
-    $giasu->DiaChiHienTai = $request->DiaChiHienTai;
-    $giasu->MoTa = $request->MoTa;
-    $giasu->ThanhTich = $request->ThanhTich;
-
-    // Xử lý upload ảnh
-    if ($request->hasFile('Anh')) {
-        $fileName = time() . '.' . $request->Anh->extension();
-        $request->Anh->move(public_path('uploads'), $fileName);
-        $giasu->Anh = $fileName;
-    }
-
-    $giasu->save();
-
-    return redirect()->back()->with('success', 'Thông tin đã được lưu thành công!');
-});
 
 //------- Phụ huynh -------//
 Route::get('/classroom', function () {
-    return view('phuhuynh.classroom');
-});
+    return view('phuhuynh.classroom'); // Trả về view classroom.blade.php
+})->name('classroom');
+
 Route::get('/phuhuynh/chinhsuathongtin', function () {
     return view('phuhuynh.chinhsuathongtin');
-});
+})->name('phuhuynh.chinhsuathongtin');
 
 //------- Chỉnh sửa thông tin Phụ huynh -------//
 
