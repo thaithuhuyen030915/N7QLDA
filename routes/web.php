@@ -63,12 +63,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
             return view('phuhuynh.classroom');
         });
     });
-    // Route::get('/classroom', function () {
-    //     return view('phuhuynh.classroom');
-    // });
-    // Route::get('/phuhuynh/chinhsuathongtin', function () {
-    //     return view('phuhuynh.chinhsuathongtin');
-    // });
     
 
 
@@ -150,51 +144,6 @@ Route::post('/lophoc/store', [LopHocController::class, 'store'])->name('lophoc.s
 Route::get('/phuhuynh/{MaHoSoPH}/lophoc', [LopHocController::class, 'lopdatao'])->name('phuhuynh.lophoc');
 
 
-//------- Gia sư -------//
-
-// Route để hiển thị trang hồ sơ gia sư
-Route::get('/hosogiasu', function () {
-    return view('giasu.hosogiasu');
-});
-
-// Route để lưu thông tin gia sư
-Route::post('/save-giasu', function (Request $request) {
-    // Xác thực dữ liệu
-    $request->validate([
-        'HoTen' => 'required|string|max:255',
-        'GioiTinh' => 'required|string',
-        'SĐT' => 'required|string|max:15',
-        'Email' => 'required|email|unique:giasu,Email',
-        'DiaChi' => 'required|string|max:255',
-        'DiaChiHienTai' => 'required|string|max:255',
-        'MoTa' => 'required|string',
-        'ThanhTich' => 'required|string',
-        'Anh' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
-
-    // Tạo đối tượng giasu mới
-    $giasu = new Giasu();
-    $giasu->HoTen = $request->HoTen;
-    $giasu->GioiTinh = $request->GioiTinh;
-    $giasu->SDT = $request->SDT;
-    $giasu->Email = $request->Email;
-    $giasu->DiaChi = $request->DiaChi;
-    $giasu->DiaChiHienTai = $request->DiaChiHienTai;
-    $giasu->MoTa = $request->MoTa;
-    $giasu->ThanhTich = $request->ThanhTich;
-
-    // Xử lý upload ảnh
-    if ($request->hasFile('Anh')) {
-        $fileName = time() . '.' . $request->Anh->extension();
-        $request->Anh->move(public_path('uploads'), $fileName);
-        $giasu->Anh = $fileName;
-    }
-
-    $giasu->save();
-
-    return redirect()->back()->with('success', 'Thông tin đã được lưu thành công!');
-});
-
 //------- Kết nối cơ sở dữ liệu -------//
 use Illuminate\Support\Facades\DB;
 
@@ -207,49 +156,18 @@ Route::get('/db-check', function () {
     }
 });
 
+//------- Gia sư -------//
+
 //------- Phụ huynh -------//
+
 Route::get('/classroom', function () {
-    return view('phuhuynh.classroom');
-});
+    return view('phuhuynh.classroom'); // Trả về view classroom.blade.php
+})->name('classroom');
+
 Route::get('/phuhuynh/chinhsuathongtin', function () {
     return view('phuhuynh.chinhsuathongtin');
-});
+})->name('phuhuynh.chinhsuathongtin');
 
-//------- Chỉnh sửa thông tin Phụ huynh -------//
-
-Route::post('/save-phuhuynh', function (Request $request) {
-    // Xác thực dữ liệu
-    $request->validate([
-        'HoTen' => 'required|varchar|max:50',
-        'SĐT' => 'required|int|max:10',
-        'Email' => 'required|varchar|max:50',
-        'DiaChi' => 'required|varchar|max:50',
-        'Anh' => 'nullable|varchar|max:50',
-        'MoTa' => 'nullable|varchar',
-    ]);
-
-    $phuhuynh = new PhuHuynh();
-    $phuhuynh->HoTen = $request->HoTen;
-    $phuhuynh->SDT = $request->SDT;
-    $phuhuynh->Email = $request->Email;
-    $phuhuynh->DiaChi = $request->DiaChi;
-    $phuhuynh->MoTa = $request->MoTa;
-
-    // Xử lý upload ảnh
-    if ($request->hasFile('Anh')) {
-        $fileName = time() . '.' . $request->Anh->extension();
-        $request->Anh->move(public_path('uploads'), $fileName);
-        $phuhuynh->Anh = $fileName;
-    }
-
-    $phuhuynh->save();
-
-    return redirect()->back()->with('success', 'Thông tin đã được lưu thành công!');
-});
-
-Route::get('/chinhsuathongtin', function () {
-    return view('chinhsuathongtin');
-});
 // Route hiển thị form thêm tài khoản
 Route::get('admin/create', [TKAdminController::class, 'create'])->name('admin.create');
 

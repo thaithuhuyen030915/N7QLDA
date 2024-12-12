@@ -15,17 +15,17 @@
 
         .sidebar {
             width: 250px;
-            background-color: white; /* Thay đổi nền thành màu trắng */
+            background-color: white;
             color: #007bff;
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            margin-left: 90px; /* Cách lề bên trái 20px */
+            margin-left: 90px;
             margin-top: 50px;
         }
 
-        .sidebar h2 {
-            margin: 0;
+        .sidebar h1 {
             font-size: 22px;
+            margin: 0 0 20px 0;
         }
 
         .sidebar a {
@@ -45,22 +45,8 @@
         .content {
             flex: 1;
             padding: 20px;
-            margin-right: 90px; /* Cách lề bên phải 20px */
+            margin-right: 90px;
             margin-top: 50px;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 40px; /* Khoảng cách giữa header và bảng thông tin */
-        }
-
-        .header h1 {
-            margin: 0;
         }
 
         .profile-info {
@@ -68,21 +54,52 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: grid;
+            justify-content: space-between;
+            column-gap: 20px;
+            border: 1px solid #ddd;
+            grid-template-columns: 1fr 1fr; /* Hai cột bằng nhau */
+            row-gap: 15px; /* Khoảng cách giữa các hàng */
+        }
+
+        .column1, .column2 {
+            flex: 1; /* Hai cột có chiều rộng bằng nhau */
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Khoảng cách giữa các nhãn và ô nhập liệu */
         }
 
         .profile-info label {
+            font-size: 14px;
             font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            display: block; /* Đảm bảo label luôn ở trên input */
         }
 
-        .profile-info input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
+        .profile-info input,
+        .profile-info select,
+        .profile-info textarea {
+            padding: 8px 12px;
+            font-size: 14px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box; /* Đảm bảo không vượt chiều rộng cột */
+            background-color: #fff;
+            font-size: 14px;
+            box-sizing: border-box;
         }
 
-        .profile-info button {
+        .profile-info h2 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #333;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 10px;
+        }
+
+        button {
             background-color: #007bff;
             color: white;
             border: none;
@@ -90,28 +107,41 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            width: 100%; /* Nút Lưu chiếm toàn bộ chiều rộng */
         }
 
-        .profile-info button:hover {
+        button:hover {
             background-color: #0056b3;
         }
 
-        .personal-info img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin: 10px 0;
-            display: none; /* Ẩn hình ảnh mặc định */
-        }
+        .profile-info button {
+    grid-column: span 2; /* Nút Lưu thay đổi chiếm toàn bộ chiều rộng */
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    align-self: center; /* Đưa nút ra giữa */
+}
 
-        .form-group {
-            margin-bottom: 15px;
+.profile-info button:hover {
+    background-color: #0056b3;
+}
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-info {
+                flex-direction: column; /* Chuyển về bố cục dọc trên màn hình nhỏ */
+            }
         }
     </style>
 </head>
 <body>
     <div class="sidebar">
-        <h2 >Nguyễn Hường</h2>
+        <h1>{{ Auth::user()->TenDN }}</h1>
         <button>Bật thông báo</button>
         <a href="#">Quản lý chung</a>
         <a href="#">Danh sách lớp mới</a>
@@ -122,51 +152,112 @@
         <a href="#">Đăng xuất</a>
     </div>
     <div class="content">
-    <form action="/save-giasu" method="POST" enctype="multipart/form-data">
-    @csrf
-        <div class="profile-info">
+        <form action="/save-phuhuynh" method="POST" enctype="multipart/form-data">
+            @csrf
+
             <h2>Thông tin cá nhân</h2>
+                    @if(session('success'))
+                        <div style="color: green; margin-bottom: 15px;">{{ session('success') }}</div>
+                    @endif
 
-             <!-- Thêm thông báo thành công ở đây -->
-             @if(session('success'))
-                <div style="color: green; margin-bottom: 15px;">{{ session('success') }}</div>
-            @endif
-            
-            <label for="full-name">Họ và tên:</label>
-            <input type="text" id="HoTen" placeholder="Nguyễn Thị Thu Hường" required/>
+            <div class="profile-info">
+                <div class="column2">
+                    <label for="HoTen">Họ tên đầy đủ:</label>
+                    <input type="text" id="HoTen" name="HoTen" value="{{ session('HoTen', '') }}" required/>
 
-            <div class="form-group">
-            <label for="GioiTinh">Giới tính:</label>
-            <select id="GioiTinh" name="GioiTinh" required>
-                <option value="Nữ">Nữ</option>
-                <option value="Nam">Nam</option>
-            </select>
+                    <label for="NgaySinh">Ngày sinh:</label>
+                    <input type="date" id="NgaySinh" name="NgaySinh" value="{{ session('NgaySinh', '') }}" required/>
+
+                    <label for="GioiTinh">Giới tính:</label>
+                    <select id="GioiTinh" name="GioiTinh">
+                        <option value="Nam" {{ session('GioiTinh') == 'Nam' ? 'selected' : '' }}>Nam</option>
+                        <option value="Nữ" {{ session('GioiTinh') == 'Nữ' ? 'selected' : '' }}>Nữ</option>
+                    </select>
+
+                    <label for="SDT">Số điện thoại:</label>
+                    <input type="text" id="SDT" name="SDT" value="{{ session('SDT', '') }}" required/>
+
+                    <label for="Email">Email:</label>
+                    <input type="email" id="Email" name="Email" value="{{ session('Email', '') }}" required/>
+                </div>
+
+                <div class="column1">
+                    <label for="QueQuan">Quê quán:</label>
+                    <input type="text" id="QueQuan" name="QueQuan" value="{{ session('QueQuan', '') }}" required/>
+
+                    <label for="DiaDiemDay">Tỉnh/thành (Địa điểm dạy):</label>
+                    <input type="text" id="DiaDiemDay" name="DiaDiemDay" value="{{ session('DiaDiemDay', '') }}" required/>
+
+                    <label for="QuanHuyen">Quận/huyện:</label>
+                    <input type="text" id="QuanHuyen" name="QuanHuyen" value="{{ session('QuanHuyen', '') }}" required/>
+
+                    <label for="DiaChi">Địa chỉ hiện tại:</label>
+                    <input type="text" id="DiaChi" name="DiaChi" value="{{ session('DiaChi', '') }}" required/>
+                </div>
             </div>
 
-            <label for="phone">Số điện thoại:</label>
-            <input type="text" id="SĐT" placeholder="0912345678" required/>
+            <h2>Thông tin gia sư</h2>
+            <div class="profile-info">
+            <div class="column1">
+                    <label for="KinhNghiem">Kinh nghiệm đi gia sư và giảng dạy(chi tiết):</label>
+                    <input type="text" id="KinhNghiem" name="KinhNghiem" value="{{ session('KinhNghiem', '') }}" required/>
 
-            <label for="email">Email:</label>
-            <input type="email" id="Email" placeholder="example@example.com" required/>
+                    <label for="ThanhTich">Thành tích học tập và dạy học(chi tiết):</label>
+                    <input type="text" id="ThanhTich" name="ThanhTich" value="{{ session('ThanhTich', '') }}" required/>
+            </div>
+            </div>
 
-            <label for="address">Địa điểm dạy:</label>
-            <input type="text" id="DiaChi" placeholder="Đống Đa" required/>
+            <h2>Hồ sơ chuyên môn</h2>
+            <div class="profile-info">
+            <div class="column2">
+                    <label for="GioiTinh">Bạn đang là:</label>
+                            <select id="GioiTinh" name="GioiTinh">
+                                <option value="Sinh viên" {{ session('GioiTinh') == 'Sinh viên' ? 'selected' : '' }}>Sinh viên</option>
+                                <option value="Giáo viên" {{ session('GioiTinh') == 'Giáo viên' ? 'selected' : '' }}>Giáo viên</option>
+                            </select>
 
-            <label for="diachi">Địa chỉ hiện tại:</label>
-            <input type="text" id="DiaChiHienTai" placeholder="Đống Đa" required/>
+                    <label for="HoTen">Trường đang học:</label>
+                    <input type="text" id="HoTen" name="HoTen" value="{{ session('HoTen', '') }}" required/>
 
-            <label for="profile-pic">Ảnh đại diện:</label>
-            <input type="file" id="Anh" />
+                    <label for="NgaySinh">Sinh viên năm:</label>
+                    <input type="text" id="NgaySinh" name="NgaySinh" value="{{ session('NgaySinh', '') }}" required/>
 
-            <label for="mota">Kinh nghiệm giảng dạy:</label>
-            <input type="text" id="MoTa" placeholder="" required/>
+                    <label for="SDT">Chuyên ngành:</label>
+                    <input type="text" id="SDT" name="SDT" value="{{ session('SDT', '') }}" required/>
+                </div>
 
-            <label for="thanhtich">Thành tích học tập và dạy học:</label>
-            <input type="text" id="ThanhTich" placeholder="" required/>            
+                <div class="column1">
+                    <label for="QueQuan">Hình thức dạy:</label>
+                    <input type="text" id="QueQuan" name="QueQuan" value="{{ session('QueQuan', '') }}" required/>
 
-            <button>Lưu thay đổi</button>
-        </div>
-    </form>
+                    <label for="DiaDiemDay">Môn học sẽ dạy:</label>
+                    <input type="text" id="DiaDiemDay" name="DiaDiemDay" value="{{ session('DiaDiemDay', '') }}" required/>
+
+                    <label for="QuanHuyen">Thời gian có thể dạy:</label>
+                    <input type="text" id="QuanHuyen" name="QuanHuyen" value="{{ session('QuanHuyen', '') }}" required/>
+
+                    <label for="DiaChi">Học phí vnđ/buổi:</label>
+                    <input type="text" id="DiaChi" name="DiaChi" value="{{ session('DiaChi', '') }}" required/>
+                </div>
+            </div>
+
+            <h2>Ảnh xác nhận thông tin gia sư</h2>
+            <div class="profile-info">
+            <div class="column1">
+                    <label for="Anh">Ảnh đại diện:</label>
+                    <input type="file" id="Anh" name="Anh" value="{{ session('Anh', '') }}" required/>
+
+                    <label for="Anh">Ảnh CMT/CCCD (mặt trước):</label>
+                    <input type="file" id="Anh" name="Anh" value="{{ session('Anh', '') }}" required/>
+
+                    <label for="Anh">Thẻ sinh viên/bằng cấp:</label>
+                    <input type="file" id="Anh" name="Anh" value="{{ session('Anh', '') }}" required/>
+            </div>
+            </div>
+
+
+            <button type="submit">Lưu thay đổi</button>
+        </form>
     </div>
 </body>
 </html>

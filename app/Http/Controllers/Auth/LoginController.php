@@ -69,7 +69,8 @@ class LoginController extends Controller
                     Toastr::success('Đăng nhập thành công!', 'Thành công');
                     DB::commit();
                     return redirect()->intended('homeadmin'); // Chuyển đến trang home
-                } elseif ($user->LoaiTK === 'Phụ huynh') {
+                } 
+                elseif ($user->LoaiTK === 'Phụ huynh') {
                     // Xử lý đăng nhập phụ huynh
                     $maHoSo = DB::table('phuhuynh')
                     ->join('nguoidung', 'phuhuynh.MaHoSoPH', '=', 'nguoidung.MaHoSoND')

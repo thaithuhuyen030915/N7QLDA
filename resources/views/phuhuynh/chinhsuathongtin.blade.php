@@ -15,11 +15,11 @@
 
         .sidebar {
             width: 250px;
-            background-color: white; /* Thay đổi nền thành màu trắng */
+            background-color: white;
             color: #007bff;
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            margin-left: 90px; /* Cách lề bên trái 20px */
+            margin-left: 90px;
             margin-top: 50px;
         }
 
@@ -45,7 +45,7 @@
         .content {
             flex: 1;
             padding: 20px;
-            margin-right: 90px; /* Cách lề bên phải 20px */
+            margin-right: 90px;
             margin-top: 50px;
         }
 
@@ -56,7 +56,7 @@
             padding: 10px;
             background-color: white;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 40px; /* Khoảng cách giữa header và bảng thông tin */
+            margin-bottom: 40px;
         }
 
         .header h1 {
@@ -90,6 +90,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            width: 100%; /* Nút Lưu chiếm toàn bộ chiều rộng */
         }
 
         .profile-info button:hover {
@@ -107,7 +108,7 @@
 </head>
 <body>
     <div class="sidebar">
-        <h2 >Ngô Thị Hải</h2>
+        <h1>{{ Auth::user()->TenDN }}</h1> <!-- Hiển thị tên người dùng -->
         <button>Bật thông báo</button>
         <a href="#">Quản lý chung</a>
         <a href="#">Danh sách gia sư</a>
@@ -118,37 +119,49 @@
         <a href="#">Đăng xuất</a>
     </div>
     <div class="content">
-    <form action="/save-phuhuynh" method="POST" enctype="multipart/form-data">
-    @csrf
-        <div class="profile-info">
-            <h2>Thông tin cá nhân</h2>
+        <form action="/save-phuhuynh" method="POST" enctype="multipart/form-data">
+            @csrf <!-- Thêm token CSRF -->
+            <div class="profile-info">
+                <h2>Thông tin cá nhân</h2>
 
-             <!-- Thêm thông báo thành công ở đây -->
-             @if(session('success'))
-                <div style="color: green; margin-bottom: 15px;">{{ session('success') }}</div>
-            @endif
-            
-            <label for="full-name">Họ và tên:</label>
-            <input type="text" id="HoTen" placeholder="Ngô Thị Hải" required/>
+                <!-- Thêm thông báo thành công -->
+                @if(session('success'))
+                    <div style="color: green; margin-bottom: 15px;">{{ session('success') }}</div>
+                @endif
+                
+                <label for="full-name">Họ và tên:</label>
+                <input type="text" id="HoTen" name="HoTen" placeholder="" 
+                       value="{{ session('HoTen', '') }}" required/>
 
-            <label for="phone">Số điện thoại:</label>
-            <input type="text" id="SĐT" placeholder="0912345678" required/>
+                <label for="ngay-sinh">Ngày sinh:</label>
+                <input type="date" id="NgaySinh" name="NgaySinh" placeholder="" 
+                       value="{{ session('NgaySinh', '') }}" required/>
 
-            <label for="email">Email:</label>
-            <input type="email" id="Email" placeholder="example@example.com" required/>
+                <label for="gioi-tinh">Giới Tính:</label>
+                <input type="text" id="GioiTinh" name="GioiTinh" placeholder="" 
+                       value="{{ session('GioiTinh', '') }}" required/>
 
-            <label for="address">Địa điểm dạy:</label>
-            <input type="text" id="DiaChi" placeholder="Đống Đa" required/>
+                <label for="phone">Số điện thoại:</label>
+                <input type="text" id="SDT" name="SDT" placeholder="" 
+                       value="{{ session('SDT', '') }}" required/>
 
-            <label for="profile-pic">Ảnh đại diện:</label>
-            <input type="file" id="Anh" />
+                <label for="email">Email:</label>
+                <input type="email" id="Email" name="Email" placeholder="" 
+                       value="{{ session('Email', '') }}" required/>
 
-            <label for="mota">Mô tả về bản thân:</label>
-            <input type="text" id="MoTa" placeholder="" />
+                <label for="address">Địa chỉ:</label>
+                <input type="text" id="DiaChi" name="DiaChi" placeholder="" 
+                       value="{{ session('DiaChi', '') }}" required/>
 
-            <button>Lưu thay đổi</button>
-        </div>
-    </form>
+                <label for="profile-pic">Ảnh đại diện:</label>
+                <input type="file" id="Anh" name="Anh" />
+
+                <label for="CCCD">Ảnh CCCD:</label>
+                <input type="file" id="CCCD" name="CCCD" />
+
+                <button type="submit">Lưu thay đổi</button>
+            </div>
+        </form>
     </div>
 </body>
 </html>
