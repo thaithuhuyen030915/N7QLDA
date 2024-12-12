@@ -159,12 +159,9 @@ Route::get('/phuhuynh/{MaHoSoPH}/lophoc', [LopHocController::class, 'lopdatao'])
 
 
 //------- Gia sư -------//
-
-// Route để hiển thị trang hồ sơ gia sư
-Route::get('/hosogiasu', function () {
-    return view('giasu.hosogiasu');
-});
-
+Route::get('/info-giasu', function() {
+    return view('giasu.info-giasu'); // Đây là view bạn đã tạo
+})->name('info-giasu');
 // Route để lưu thông tin gia sư
 Route::post('/save-giasu', function (Request $request) {
     // Xác thực dữ liệu
@@ -201,18 +198,6 @@ Route::post('/save-giasu', function (Request $request) {
     $giasu->save();
 
     return redirect()->back()->with('success', 'Thông tin đã được lưu thành công!');
-});
-
-//------- Kết nối cơ sở dữ liệu -------//
-use Illuminate\Support\Facades\DB;
-
-Route::get('/db-check', function () {
-    try {
-        DB::connection()->getPdo();
-        return "Kết nối cơ sở dữ liệu thành công. Database: " . DB::connection()->getDatabaseName();
-    } catch (\Exception $e) {
-        return "Không thể kết nối cơ sở dữ liệu: " . $e->getMessage();
-    }
 });
 
 //------- Phụ huynh -------//

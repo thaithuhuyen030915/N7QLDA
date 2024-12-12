@@ -61,7 +61,7 @@ class RegisterController extends Controller
 
             // Điều hướng dựa trên loại tài khoản
             if ($request->LoaiTK === 'Gia sư') {
-                return redirect('/hosogiasu')->with('success', 'Đăng ký thành công! Hãy hoàn thiện hồ sơ gia sư.');
+                return redirect()->route('info-giasu')->with('success', 'Đăng ký thành công! Hãy hoàn thiện hồ sơ gia sư.');
             }
 
             return redirect('/phuhuynh/chinhsuathongtin')->with('success', 'Đăng ký thành công! Hãy hoàn thiện thông tin phụ huynh.');
@@ -70,5 +70,7 @@ class RegisterController extends Controller
             return back()->withErrors(['error' => 'Có lỗi xảy ra: ' . $e->getMessage()]);
         }
     }
+
+    
 }
 ?>

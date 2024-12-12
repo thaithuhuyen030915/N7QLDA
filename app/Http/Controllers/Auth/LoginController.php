@@ -169,7 +169,7 @@ class LoginController extends Controller
             return redirect()->route('home');
         }
     
-        return view('giaSu.hosogiasu', compact('giaSu'));
+        return view('giasu.hosogiasu', compact('giaSu'));
     }
     
 

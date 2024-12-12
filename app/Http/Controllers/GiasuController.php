@@ -47,3 +47,4 @@ class GiasuController extends Controller
             return view('your_view_name', compact('user')); // Thay your_view_name bằng tên view thực tế
         }
 }
+?>
