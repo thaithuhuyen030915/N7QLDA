@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeAdminController;
+use App\Http\Controllers\LopHoc\LophocController;
 use App\Http\Controllers\QLNguoiDung\HSGiaSuController;
 use App\Http\Controllers\QLTaiKhoan\TKAdminController;
 use App\Http\Controllers\QLTaiKhoan\VaiTroController;
@@ -8,7 +9,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GiasuController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\LopHoc\TaolophocController;
-use App\Http\Controllers\LopHoc\LophocController;
 //use Illuminate\Http\Request;
 use App\Models\Giasu;
 use App\Models\PhuHuynh;
