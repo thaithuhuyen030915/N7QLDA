@@ -141,11 +141,9 @@
 </head>
 <body>
     <div class="sidebar">
-<<<<<<< HEAD
+
         <h1>{{ Auth::user()->TenDN }}</h1>
-=======
-        <h2 >{{ $giaSu->HoTen }}</h2>
->>>>>>> 069606fc02b0e68cb8ed911b5ae4ba9e4dda979b
+
         <button>Bật thông báo</button>
         <a href="#">Quản lý chung</a>
         <a href="#">Danh sách lớp mới</a>
@@ -156,7 +154,7 @@
         <a href="#">Đăng xuất</a>
     </div>
     <div class="content">
-        <form action="/save-phuhuynh" method="POST" enctype="multipart/form-data">
+        <form action="/save-giasu" method="POST" enctype="multipart/form-data">
             @csrf
 
             <h2>Thông tin cá nhân</h2>
@@ -164,7 +162,7 @@
                         <div style="color: green; margin-bottom: 15px;">{{ session('success') }}</div>
                     @endif
 
-<<<<<<< HEAD
+
             <div class="profile-info">
                 <div class="column2">
                     <label for="HoTen">Họ tên đầy đủ:</label>
@@ -261,50 +259,9 @@
             </div>
 
 
-            <button type="submit">Lưu thay đổi</button>
+            <button type="submit">Lưu thay đổi và chờ xác nhận</button>
         </form>
-=======
-             <!-- Thêm thông báo thành công ở đây -->
-             @if(session('success'))
-                <div style="color: green; margin-bottom: 15px;">{{ session('success') }}</div>
-            @endif
-            
-            <label for="full-name">Họ và tên:</label>
-            <input type="text" name="HoTen" value="{{ old('HoTen', $giaSu->HoTen ?? '') }}" placeholder="Nhập vào họ tên" required/>
 
-            <div class="form-group">
-                    <label for="GioiTinh">Giới tính:</label>
-                    <select id="GioiTinh" name="GioiTinh" required>
-                        <option value="Nữ" {{ $giaSu->GioiTinh == 'Nữ' ? 'selected' : '' }}>Nữ</option>
-                        <option value="Nam" {{ $giaSu->GioiTinh == 'Nam' ? 'selected' : '' }}>Nam</option>
-                    </select>
-                </div>
-
-                <label for="phone">Số điện thoại:</label>
-                <input type="text" id="SĐT" name="SĐT" value="{{ old('SĐT', $giaSu->SDT ?? '') }}" placeholder="0912345678" required/>
-
-                <label for="email">Email:</label>
-                <input type="email" id="Email" name="Email" value="{{ old('Email', $giaSu->Email ?? '') }}" placeholder="example@example.com" required/>
-
-                <label for="address">Địa điểm dạy:</label>
-                <input type="text" id="DiaChi" name="DiaChi" value="{{ old('DiaChi', $giaSu->DiaChi ?? '') }}" placeholder="Địa điểm dạy" required/>
-
-                <label for="diachi">Địa chỉ hiện tại:</label>
-                <input type="text" id="DiaChiHienTai" name="DiaChiHienTai" value="{{ old('DiaChiHienTai', $giaSu->DiaChiHienTai ?? '') }}" placeholder="Địa chỉ của bạn" required/>
-
-                <label for="profile-pic">Ảnh đại diện:</label>
-                <input type="file" id="Anh" name="Anh" />
-
-                <label for="mota">Kinh nghiệm giảng dạy:</label>
-                <input type="text" id="MoTa" name="MoTa" value="{{ old('MoTa', $giaSu->KinhNghiem ?? '') }}" placeholder="Kinh nghiệm..." required/>
-
-                <label for="thanhtich">Thành tích học tập và dạy học:</label>
-                <input type="text" id="ThanhTich" name="ThanhTich" value="{{ old('ThanhTich', $giaSu->BangCap ?? '') }}" placeholder="Thành tích..." required/>            
-
-                <button>Lưu thay đổi</button>
-        </div>
-    </form>
->>>>>>> 069606fc02b0e68cb8ed911b5ae4ba9e4dda979b
     </div>
 </body>
 </html>
