@@ -16,7 +16,7 @@
                     <input type="radio" name="LoaiTK" id="gia_su" value="Gia sư" class="me-3" {{ old('LoaiTK', 'Gia sư') == 'Gia sư' ? 'checked' : '' }}>
                     <label for="gia_su" class="me-3">Gia sư</label>
 
-                    <input type="radio" name="LoaiTK" id="phu_huynh" value="Học viên" class="me-3" {{ old('LoaiTK') == 'Phụ huynh' ? 'checked' : '' }}>
+                    <input type="radio" name="LoaiTK" id="phu_huynh" value="Phụ huynh" class="me-3" {{ old('LoaiTK') == 'Phụ huynh' ? 'checked' : '' }}>
                     <label for="phu_huynh"> Phụ huynh</label>
                 </div>
             </div>
@@ -26,23 +26,6 @@
                 <label for="TenDN">Tên Đăng Nhập <span class="text-danger">*</span></label>
                 <input type="text" name="TenDN" id="TenDN" class="form-control" placeholder="Nhập tên đăng nhập" value="{{ old('TenDN') }}" required>
                 @error('TenDN')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-
-              <!-- Số ĐT -->
-              <div class="form-group mb-3">
-                <label for="TenDN">Số điện thoại <span class="text-danger">*</span></label>
-                <input type="string" name="SDT" id="TenDN" class="form-control" placeholder="Nhập SĐT" value="{{ old('SDT') }}" required>
-                @error('SDT')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
-            <!-- Email -->
-            <div class="form-group mb-3">
-                <label for="email">Email <span class="text-danger">*</span></label>
-                <input type="email" name="email" id="email" class="form-control" placeholder="Nhập email của bạn" value="{{ old('email') }}" required>
-                @error('email')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
@@ -97,3 +80,12 @@
         });
     </script>
 @endsection
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
