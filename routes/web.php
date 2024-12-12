@@ -69,7 +69,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     // Route::get('/phuhuynh/chinhsuathongtin', function () {
     //     return view('phuhuynh.chinhsuathongtin');
     // });
-    
+
 
 
 // ----------------------------Đăng ký tài khoản ------------------------------//
@@ -78,7 +78,7 @@ use App\Http\Controllers\Auth\RegisterController;
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
     // Xử lý đăng ký
 Route::post('/register', [RegisterController::class, 'register']);
-        
+
     // đăng ký tài khoản gia sư
     Route::group(['middleware'=>'auth'],function()
     {
