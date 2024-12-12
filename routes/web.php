@@ -40,24 +40,61 @@ Route::group(['middleware'=>'auth'],function()
     });
 });
 
+
 // ---------------------------- Xử lý login ------------------------------//
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// use App\Http\Controllers\Auth\ClientLoginController;
-// Route::get('/login', [ClientLoginController::class, 'login'])->name('login');
-// Route::post('/authenticate', [ClientLoginController::class, 'authenticate'])->name('authenticate');
-// Route::post('/logout', [ClientLoginController::class, 'logout'])->name('logout');
+    // đăng nhập tài khoản gia sư
+    Route::group(['middleware'=>'auth'],function()
+    {
+        Route::get('/hosogiasu/{MaHoSoGS}',function()
+        {
+            return view('giasu.hosogiasu');
+        });
+    });
+    // đăng nhập tài khoản phụ huynh
+    Route::group(['middleware'=>'auth'],function()
+    {
+        Route::get('/classroom/{MaHoSoPH}',function()
+        {
+            return view('phuhuynh.classroom');
+        });
+    });
+    // Route::get('/classroom', function () {
+    //     return view('phuhuynh.classroom');
+    // });
+    // Route::get('/phuhuynh/chinhsuathongtin', function () {
+    //     return view('phuhuynh.chinhsuathongtin');
+    // });
+    
 
-// ----------------------------Đăng ký ------------------------------//
-// ----------------------------Đăng ký tài khoản khách------------------------------//
+
+// ----------------------------Đăng ký tài khoản ------------------------------//
 use App\Http\Controllers\Auth\RegisterController;
     // Hiển thị form đăng ký
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
     // Xử lý đăng ký
 Route::post('/register', [RegisterController::class, 'register']);
+        
+    // đăng ký tài khoản gia sư
+    Route::group(['middleware'=>'auth'],function()
+    {
+        Route::get('/hosogiasu/{MaHoSoGS}',function()
+        {
+            return view('giasu.hosogiasu');
+        });
+    });
+    // đăng nhập tài khoản phụ huynh
+    Route::group(['middleware'=>'auth'],function()
+    {
+        Route::get('/phuhuynh/{MaHoSoPH}',function()
+        {
+            return view('phuhuynh.chinhsuathongtin');
+        });
+    });
 
 
 
