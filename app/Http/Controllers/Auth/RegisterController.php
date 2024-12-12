@@ -64,7 +64,7 @@ class RegisterController extends Controller
                 return redirect('/hosogiasu')->with('success', 'Đăng ký thành công! Hãy hoàn thiện hồ sơ gia sư.');
             }
 
-            return redirect('/classroom')->with('success', 'Đăng ký thành công! Hãy hoàn thiện thông tin phụ huynh.');
+            return redirect('/phuhuynh/chinhsuathongtin')->with('success', 'Đăng ký thành công! Hãy hoàn thiện thông tin phụ huynh.');
         } catch (Exception $e) {
             DB::rollBack(); // Hoàn tác nếu có lỗi
             return back()->withErrors(['error' => 'Có lỗi xảy ra: ' . $e->getMessage()]);

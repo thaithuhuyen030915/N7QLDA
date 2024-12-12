@@ -155,4 +155,22 @@ class LoginController extends Controller
 
         return $maHoSo;
     }
+
+    public function showTutorProfile($maHoSo)
+    {
+        // Lấy thông tin gia sư từ bảng giasu dựa vào mã hồ sơ
+        $giaSu = DB::table('giasu')
+            ->join('nguoidung', 'giasu.MaHoSoGS', '=', 'nguoidung.MaHoSoND')
+            ->where('giasu.MaHoSoGS', $maHoSo)
+            ->first();
+    
+        if (!$giaSu) {
+            Toastr::error('Không tìm thấy thông tin gia sư.', 'Lỗi');
+            return redirect()->route('home');
+        }
+    
+        return view('giaSu.hosogiasu', compact('giaSu'));
+    }
+    
+
 }
