@@ -13,7 +13,8 @@ class LophocController extends Controller
      */
     public function index()
     {
-        $lophocs = LopHoc::paginate(5);
+        //$lophocs = LopHoc::paginate(5);
+        $lophocs = LopHoc::all();
         // Trả về view với dữ liệu lớp học
         return view('lophoc.lophoc', compact('lophocs'));
     }

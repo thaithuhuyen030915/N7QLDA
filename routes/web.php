@@ -7,6 +7,8 @@ use App\Http\Controllers\QLTaiKhoan\VaiTroController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GiasuController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\LopHoc\TaolophocController;
+use App\Http\Controllers\LopHoc\LophocController;
 //use Illuminate\Http\Request;
 use App\Models\Giasu;
 use App\Models\PhuHuynh;
@@ -139,13 +141,8 @@ Route::get('/denghi/create/{MaLop}', [DenghiController::class, 'create'])->name(
 
 //---------------------Tạo lớp học mới--------------------------
 // use App\Http\Controllers\LopHoc\TaolophocController;
-Route::get('/lophoc/create', [LopHocController::class, 'create'])->name('lophoc.create');
-Route::post('/lophoc/store', [LopHocController::class, 'store'])->name('lophoc.store');
-
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/taolophoc', [TaolophocController::class, 'create'])->name('taolophoc.create');
-//     Route::post('/taolophoc', [TaolophocController::class, 'store'])->name('taolophoc.store');
-//  });
+Route::get('/lophoc/create', [LophocController::class, 'create'])->name('lophoc.create');
+Route::post('/lophoc/store', [LophocController::class, 'store'])->name('lophoc.store');
 //-----------------------danh sách lớp đã tạo của hồ sơ phụ huynh
 Route::get('/phuhuynh/{MaHoSoPH}/lophoc', [LopHocController::class, 'lopdatao'])->name('phuhuynh.lophoc');
 
