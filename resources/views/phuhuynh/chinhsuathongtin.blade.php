@@ -124,7 +124,7 @@
         <a href="#">Đăng xuất</a>
     </div>
     <div class="content">
-        <form action="/save-phuhuynh" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('phuhuynh.update') }}" method="POST" enctype="multipart/form-data">
             @csrf <!-- Thêm token CSRF -->
             <div class="profile-info">
                 <h2>Thông tin cá nhân</h2>
