@@ -18,7 +18,20 @@ class Giasu extends Model
         'LoaiNguoiDung',
         'TrinhDo',
         'KinhNghiem',
-        'BangCap'
+        'BangCap',
+        'QueQuan',
+        'Tinh_Thanh',
+        'Quan_Huyen',
+        'ThanhTich',
+        'ChucVu',
+        'NoiHocTap',
+        'HinhThucDay',
+        'MonHoc',
+        'ThoiGian',
+        'HocPhi',
+        'CCCD',
+        'MinhChung',
+        'ChuyenNganh',
     ];
 
     // Liên kết với bảng NguoiDung
