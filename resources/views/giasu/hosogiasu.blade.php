@@ -154,7 +154,7 @@
         <a href="#">Đăng xuất</a>
     </div>
     <div class="content">
-        <form action="/save-giasu" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('save-giasu') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <h2>Thông tin cá nhân</h2>
@@ -188,11 +188,11 @@
                     <label for="QueQuan">Quê quán:</label>
                     <input type="text" id="QueQuan" name="QueQuan" value="{{ session('QueQuan', '') }}" required/>
 
-                    <label for="DiaDiemDay">Tỉnh/thành (Địa điểm dạy):</label>
-                    <input type="text" id="DiaDiemDay" name="DiaDiemDay" value="{{ session('DiaDiemDay', '') }}" required/>
+                    <label for="Tinh/Thanh">Tỉnh/thành (Địa điểm dạy):</label>
+                    <input type="text" id="Tinh/Thanh" name="Tinh/Thanh" value="{{ session('Tinh/Thanh', '') }}" required/>
 
-                    <label for="QuanHuyen">Quận/huyện:</label>
-                    <input type="text" id="QuanHuyen" name="QuanHuyen" value="{{ session('QuanHuyen', '') }}" required/>
+                    <label for="Quan/Huyen">Quận/huyện:</label>
+                    <input type="text" id="Quan/Huyen" name="Quan/Huyen" value="{{ session('Quan/Huyen', '') }}" required/>
 
                     <label for="DiaChi">Địa chỉ hiện tại:</label>
                     <input type="text" id="DiaChi" name="DiaChi" value="{{ session('DiaChi', '') }}" required/>
@@ -213,34 +213,34 @@
             <h2>Hồ sơ chuyên môn</h2>
             <div class="profile-info">
             <div class="column2">
-                    <label for="GioiTinh">Bạn đang là:</label>
-                            <select id="GioiTinh" name="GioiTinh">
-                                <option value="Sinh viên" {{ session('GioiTinh') == 'Sinh viên' ? 'selected' : '' }}>Sinh viên</option>
-                                <option value="Giáo viên" {{ session('GioiTinh') == 'Giáo viên' ? 'selected' : '' }}>Giáo viên</option>
+                    <label for="ChucVu">Bạn đang là:</label>
+                            <select id="ChucVu" name="ChucVu">
+                                <option value="Sinh viên" {{ session('ChucVu') == 'Sinh viên' ? 'selected' : '' }}>Sinh viên</option>
+                                <option value="Giáo viên" {{ session('ChucVu') == 'Giáo viên' ? 'selected' : '' }}>Giáo viên</option>
                             </select>
 
-                    <label for="HoTen">Nơi học tập/công tác:</label>
-                    <input type="text" id="HoTen" name="HoTen" value="{{ session('HoTen', '') }}" required/>
+                    <label for="NoiHocTap">Nơi học tập/công tác:</label>
+                    <input type="text" id="NoiHocTap" name="NoiHocTap" value="{{ session('NoiHocTap', '') }}" required/>
 
-                    <label for="NgaySinh">Bằng cấp:</label>
-                    <input type="text" id="NgaySinh" name="NgaySinh" value="{{ session('NgaySinh', '') }}" required/>
+                    <label for="BangCap">Bằng cấp:</label>
+                    <input type="text" id="BangCap" name="BangCap" value="{{ session('BangCap', '') }}" required/>
 
-                    <label for="SDT">Chuyên ngành:</label>
-                    <input type="text" id="SDT" name="SDT" value="{{ session('SDT', '') }}" required/>
+                    <label for="ChuyenNganh">Chuyên ngành:</label>
+                    <input type="text" id="ChuyenNganh" name="ChuyenNganh" value="{{ session('ChuyenNganh', '') }}" required/>
                 </div>
 
                 <div class="column1">
-                    <label for="QueQuan">Hình thức dạy:</label>
-                    <input type="text" id="QueQuan" name="QueQuan" value="{{ session('QueQuan', '') }}" required/>
+                    <label for="HinhThucDay">Hình thức dạy:</label>
+                    <input type="text" id="HinhThucDay" name="HinhThucDay" value="{{ session('HinhThucDay', '') }}" required/>
 
-                    <label for="DiaDiemDay">Môn học sẽ dạy:</label>
-                    <input type="text" id="DiaDiemDay" name="DiaDiemDay" value="{{ session('DiaDiemDay', '') }}" required/>
+                    <label for="MonHoc">Môn học sẽ dạy:</label>
+                    <input type="text" id="MonHoc" name="MonHoc" value="{{ session('MonHoc', '') }}" required/>
 
-                    <label for="QuanHuyen">Thời gian có thể dạy:</label>
-                    <input type="text" id="QuanHuyen" name="QuanHuyen" value="{{ session('QuanHuyen', '') }}" required/>
+                    <label for="ThoiGian">Thời gian có thể dạy:</label>
+                    <input type="text" id="ThoiGian" name="ThoiGian" value="{{ session('ThoiGian', '') }}" required/>
 
-                    <label for="DiaChi">Học phí vnđ/buổi:</label>
-                    <input type="text" id="DiaChi" name="DiaChi" value="{{ session('DiaChi', '') }}" required/>
+                    <label for="HocPhi">Học phí vnđ/buổi:</label>
+                    <input type="text" id="HocPhi" name="HocPhi" value="{{ session('HocPhi', '') }}" required/>
                 </div>
             </div>
 
@@ -250,11 +250,11 @@
                     <label for="Anh">Ảnh đại diện:</label>
                     <input type="file" id="Anh" name="Anh" value="{{ session('Anh', '') }}" required/>
 
-                    <label for="Anh">Ảnh CMT/CCCD (mặt trước):</label>
-                    <input type="file" id="Anh" name="Anh" value="{{ session('Anh', '') }}" required/>
+                    <label for="CCCD">Ảnh CMT/CCCD (mặt trước):</label>
+                    <input type="file" id="CCCD" name="CCCD" value="{{ session('CCCD', '') }}" required/>
 
-                    <label for="Anh">Thẻ sinh viên/bằng cấp:</label>
-                    <input type="file" id="Anh" name="Anh" value="{{ session('Anh', '') }}" required/>
+                    <label for="MinhChung">Thẻ sinh viên/bằng cấp:</label>
+                    <input type="file" id="MinhChung" name="MinhChung" value="{{ session('MinhChung', '') }}" required/>
             </div>
             </div>
 
