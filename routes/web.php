@@ -13,6 +13,7 @@ use App\Http\Controllers\LopHoc\TaolophocController;
 use App\Models\Giasu;
 use App\Models\PhuHuynh;
 use App\Http\Controllers\homeController;
+use App\Http\Controllers\PhuHuynhController;
 
 use Illuminate\Support\Facades\Request;
 
@@ -174,40 +175,9 @@ Route::get('/phuhuynh/chinhsuathongtin', function () {
 })->name('phuhuynh.chinhsuathongtin');
 
 //------- Chỉnh sửa thông tin Phụ huynh -------//
+Route::post('/save-phuhuynh', [PhuHuynhController::class, 'update'])->name('phuhuynh.update');
 
-Route::post('/save-phuhuynh', function (Request $request) {
-    // Xác thực dữ liệu
-    $request->validate([
-        'HoTen' => 'required|varchar|max:50',
-        'SĐT' => 'required|int|max:10',
-        'Email' => 'required|varchar|max:50',
-        'DiaChi' => 'required|varchar|max:50',
-        'Anh' => 'nullable|varchar|max:50',
-        'MoTa' => 'nullable|varchar',
-    ]);
 
-    $phuhuynh = new PhuHuynh();
-    $phuhuynh->HoTen = $request->HoTen;
-    $phuhuynh->SDT = $request->SDT;
-    $phuhuynh->Email = $request->Email;
-    $phuhuynh->DiaChi = $request->DiaChi;
-    $phuhuynh->MoTa = $request->MoTa;
-
-    // Xử lý upload ảnh
-    if ($request->hasFile('Anh')) {
-        $fileName = time() . '.' . $request->Anh->extension();
-        $request->Anh->move(public_path('uploads'), $fileName);
-        $phuhuynh->Anh = $fileName;
-    }
-
-    $phuhuynh->save();
-
-    return redirect()->back()->with('success', 'Thông tin đã được lưu thành công!');
-});
-
-Route::get('/chinhsuathongtin', function () {
-    return view('chinhsuathongtin');
-});
 // Route hiển thị form thêm tài khoản
 Route::get('admin/create', [TKAdminController::class, 'create'])->name('admin.create');
 
