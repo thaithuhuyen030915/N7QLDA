@@ -164,6 +164,10 @@ Route::get('/info-giasu', function() {
     return view('giasu.info-giasu'); // Đây là view bạn đã tạo
 })->name('info-giasu');
 
+//------- Chỉnh sửa thông tin Gia Sư -------//
+
+Route::post('/save-giasu', [GiaSuController::class, 'save'])->name('save-giasu');
+
 
 //------- Phụ huynh -------//
 Route::get('/classroom', function () {
