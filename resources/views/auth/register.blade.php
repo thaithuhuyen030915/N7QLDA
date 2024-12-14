@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container mt-5">
         <h2 class="text-center mb-4">Đăng Ký</h2>
@@ -7,9 +6,6 @@
             @csrf
 
             <!-- Chọn loại tài khoản -->
-            <style>
-                .radio-label { margin-right: 20px; }
-            </style>
             <div class="form-group mb-3">
                 <label class="form-label">Vui lòng chọn loại tài khoản:</label>
                 <div>
