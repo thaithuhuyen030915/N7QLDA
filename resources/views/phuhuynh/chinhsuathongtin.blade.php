@@ -113,7 +113,7 @@
         @else
             <h1>Vui lòng đăng nhập</h1> <!-- Hiển thị nếu người dùng chưa đăng nhập -->
         @endif
-        
+
         <button>Bật thông báo</button>
         <a href="#">Quản lý chung</a>
         <a href="#">Danh sách gia sư</a>
@@ -133,29 +133,29 @@
                 @if(session('success'))
                     <div style="color: green; margin-bottom: 15px;">{{ session('success') }}</div>
                 @endif
-                
+
                 <label for="full-name">Họ và tên:</label>
-                <input type="text" id="HoTen" name="HoTen" placeholder="" 
+                <input type="text" id="HoTen" name="HoTen" placeholder=""
                        value="{{ session('HoTen', '') }}" required/>
 
                 <label for="ngay-sinh">Ngày sinh:</label>
-                <input type="date" id="NgaySinh" name="NgaySinh" placeholder="" 
+                <input type="date" id="NgaySinh" name="NgaySinh" placeholder=""
                        value="{{ session('NgaySinh', '') }}" required/>
 
                 <label for="gioi-tinh">Giới Tính:</label>
-                <input type="text" id="GioiTinh" name="GioiTinh" placeholder="" 
+                <input type="text" id="GioiTinh" name="GioiTinh" placeholder=""
                        value="{{ session('GioiTinh', '') }}" required/>
 
                 <label for="phone">Số điện thoại:</label>
-                <input type="text" id="SDT" name="SDT" placeholder="" 
+                <input type="text" id="SDT" name="SDT" placeholder=""
                        value="{{ session('SDT', '') }}" required/>
 
                 <label for="email">Email:</label>
-                <input type="email" id="Email" name="Email" placeholder="" 
+                <input type="email" id="Email" name="Email" placeholder=""
                        value="{{ session('Email', '') }}" required/>
 
                 <label for="address">Địa chỉ:</label>
-                <input type="text" id="DiaChi" name="DiaChi" placeholder="" 
+                <input type="text" id="DiaChi" name="DiaChi" placeholder=""
                        value="{{ session('DiaChi', '') }}" required/>
 
                 <label for="profile-pic">Ảnh đại diện:</label>

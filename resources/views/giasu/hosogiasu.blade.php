@@ -151,7 +151,10 @@
         <a href="#">Giới thiệu gia sư</a>
         <a href="#">Cài đặt</a>
         <a href="#">Chat online</a>
-        <a href="#">Đăng xuất</a>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+        </form>
     </div>
     <div class="content">
     <form action="{{ route('save-giasu') }}" method="POST" enctype="multipart/form-data">

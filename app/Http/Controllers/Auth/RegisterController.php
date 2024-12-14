@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Brian2694\Toastr\Facades\Toastr;
 
 class RegisterController extends Controller
 {
@@ -45,11 +46,11 @@ class RegisterController extends Controller
             // Sinh mã hồ sơ tự động
             $lastProfile = NguoiDung::orderBy('MaHoSoND', 'desc')->first();
             $maHoSo = $lastProfile ? 'HS' . str_pad(((int)substr($lastProfile->MaHoSoND, 2)) + 1, 3, '0', STR_PAD_LEFT) : 'HS009';
-            // Kiểm tra nếu mã hồ sơ đã tồn tại trong cơ sở dữ liệu
+
             while (NguoiDung::where('MaHoSoND', $maHoSo)->exists()) {
-                // Nếu mã hồ sơ đã tồn tại, tăng giá trị lên và kiểm tra lại
                 $maHoSo = 'HS' . str_pad(((int)substr($maHoSo, 2)) + 1, 3, '0', STR_PAD_LEFT);
             }
+
             // Tạo người dùng mới
             NguoiDung::create([
                 'MaHoSoND' => $maHoSo,
@@ -60,33 +61,27 @@ class RegisterController extends Controller
 
             // Nếu loại tài khoản là Phụ huynh, thêm thông tin vào bảng PhuHuynh
             if ($request->LoaiTK === 'Phụ huynh') {
-            PhuHuynh::create([
-                'MaHoSoPH' => $maHoSo, // Sử dụng MaHoSoND làm MaHoSoPhuHuynh
-                'LoaiNguoiDung' => $request->LoaiTK,
-                'CCCD' => $request->input('CCCD', null), // Thêm các trường nếu cần
-                'HoTen' => $request->input('HoTen', null), // Các trường khác nếu có
-                'SĐT' => $request->input('SĐT', null),
-                'Email' => $request->input('Email', null),
-                'DiaChi' => $request->input('DiaChi', null),
-                'Anh' => $request->input('Anh', null),
-                'MoTa' => $request->input('MoTa', null),
-            ]);
-        }
-
-            DB::commit(); // Lưu thay đổi vào database
-
-
-            // Điều hướng dựa trên loại tài khoản
-            if ($request->LoaiTK === 'Gia sư') {
-                return redirect()->route('info-giasu')->with('success', 'Đăng ký thành công! Hãy hoàn thiện hồ sơ gia sư.');
+                PhuHuynh::create([
+                    'MaHoSoPH' => $maHoSo,
+                    'LoaiNguoiDung' => $request->LoaiTK,
+                    'CCCD' => $request->input('CCCD', null),
+                    'HoTen' => $request->input('HoTen', null),
+                    'SĐT' => $request->input('SĐT', null),
+                    'Email' => $request->input('Email', null),
+                    'DiaChi' => $request->input('DiaChi', null),
+                    'Anh' => $request->input('Anh', null),
+                    'MoTa' => $request->input('MoTa', null),
+                ]);
             }
 
-            return redirect('/phuhuynh/chinhsuathongtin')->with('success', 'Đăng ký thành công! Hãy hoàn thiện thông tin phụ huynh.');
+            DB::commit(); // Lưu thay đổi vào database
+            Toastr::success('Đăng ký thành công! Hãy đăng nhập để tiếp tục.');// Chuyển hướng về trang đăng nhập với thông báo thành công
+            return redirect()->route('login');
+
         } catch (Exception $e) {
             DB::rollBack(); // Hoàn tác nếu có lỗi
             return back()->withErrors(['error' => 'Có lỗi xảy ra: ' . $e->getMessage()]);
         }
     }
-
 }
 ?>
