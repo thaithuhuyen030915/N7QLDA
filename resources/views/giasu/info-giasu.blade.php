@@ -111,8 +111,7 @@
 </head>
 <body>
     <div class="sidebar">
-        <h2 >{{ $giasu->HoTen ?? 'Tên người dùng' }}</h2>
-        <button>Bật thông báo</button>
+        <h2 >{{ $giasu->HoTen ?? 'Tên người dùng' }}</h2>        <button>Bật thông báo</button>
         <a href="#">Quản lý chung</a>
         <a href="#">Danh sách lớp mới</a>
         <a href="#">Quản lý lớp</a>

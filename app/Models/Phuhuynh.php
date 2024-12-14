@@ -4,7 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PhuHuynh extends Model
+class Phuhuynh extends Model
 {
     use HasFactory;
 
@@ -23,7 +23,7 @@ class PhuHuynh extends Model
         // 'Anh',
         // 'Mota',
     ];
-    
+
     public function Nguoidung(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(NguoiDung::class, 'MaHoSoPH', 'MaHoSoND');
