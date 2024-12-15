@@ -35,13 +35,13 @@
         }
 
         .dropdown-button {
-            background: none; /* Xóa màu nền */
-            border: none; /* Xóa viền */
-            color: white; /* Màu chữ */
-            cursor: pointer; /* Con trỏ chuột khi hover */
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
             padding: 2px 5px;
             font-size: 10px; 
-            line-height: 1; /* Giảm chiều cao dòng */
+            line-height: 1;
         }
 
         .dropdown {
@@ -50,11 +50,11 @@
             background-color: white;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             z-index: 1;
-            display: none; /* Ẩn dropdown mặc định */
+            display: none;
         }
 
         .dropdown.visible {
-            display: block; /* Hiện dropdown khi có class 'visible' */
+            display: block;
         }
 
         .dropdown-item {
@@ -64,7 +64,7 @@
         }
 
         .dropdown-item:hover {
-            background-color: #f1f1f1; /* Màu nền khi hover */
+            background-color: #f1f1f1;
         }
 
         .container {
@@ -76,7 +76,7 @@
             padding: 50px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin: 0 150px; /* Khoảng cách 20px từ lề trái và phải */
+            margin: 0 150px;
         }
 
         h1 {
@@ -151,13 +151,13 @@
         <div class="navbar">
             <div class="title">Gia Sư Đăng Minh</div>
             <div class="user-info">
-                Ngô Thị Hải
-                <button class="filter-select dropdown-button" onclick="toggleDropdown()">▼</button> <!-- Nút dropdown -->
+                {{ Auth::user()->TenDN }} <!-- Hiển thị tên người dùng -->
+                <button class="filter-select dropdown-button" onclick="toggleDropdown()">▼</button>
                 <div class="dropdown" id="userDropdown">
                     <div class="dropdown-item"><a href="#">Quản lý lớp</a></div>
                     <div class="dropdown-item"><a href="#">Danh sách gia sư</a></div>
                     <div class="dropdown-item"><a href="#">Đăng yêu cầu tìm gia sư</a></div>
-                    <div class="dropdown-item"><a href="chinhsuathongtin.blade.php">Chỉnh sửa thông tin</a></div>
+                    <div class="dropdown-item"><a href="{{ route('phuhuynh.chinhsuathongtin') }}">Chỉnh sửa thông tin</a></div>
                     <div class="dropdown-item"><a href="#">Đổi mật khẩu</a></div>
                     <div class="dropdown-item"><a href="#">Đăng xuất</a></div>
                 </div>

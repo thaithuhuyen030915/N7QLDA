@@ -29,6 +29,12 @@
                 <div class="form-group">
                     <button class="btn btn-primary btn-block" type="submit">Đăng nhập</button>
                 </div>
+                <!-- Điều hướng đến trang đăng ký -->
+                <div class="text-center mt-3">
+                    <p>Bạn chưa có tài khoản?
+                        <a href="{{ route('register') }}" class="text-primary">Đăng ký</a>
+                    </p>
+                </div>
             </form>
         </div>
     </div>

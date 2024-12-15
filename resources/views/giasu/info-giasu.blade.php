@@ -15,11 +15,11 @@
 
         .sidebar {
             width: 250px;
-            background-color: white;
+            background-color: white; /* Thay đổi nền thành màu trắng */
             color: #007bff;
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            margin-left: 90px;
+            margin-left: 90px; /* Cách lề bên trái 20px */
             margin-top: 50px;
         }
 
@@ -45,7 +45,7 @@
         .content {
             flex: 1;
             padding: 20px;
-            margin-right: 90px;
+            margin-right: 90px; /* Cách lề bên phải 20px */
             margin-top: 50px;
         }
 
@@ -56,7 +56,7 @@
             padding: 10px;
             background-color: white;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 40px;
+            margin-bottom: 40px; /* Khoảng cách giữa header và bảng thông tin */
         }
 
         .header h1 {
@@ -90,7 +90,6 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
-            width: 100%; /* Nút Lưu chiếm toàn bộ chiều rộng */
         }
 
         .profile-info button:hover {
@@ -104,69 +103,69 @@
             margin: 10px 0;
             display: none; /* Ẩn hình ảnh mặc định */
         }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
     <div class="sidebar">
-        @if(Auth::check())
-            <h1>{{ Auth::user()->TenDN }}</h1> <!-- Hiển thị tên người dùng -->
-        @else
-            <h1>Vui lòng đăng nhập</h1> <!-- Hiển thị nếu người dùng chưa đăng nhập -->
-        @endif
-
-        <button>Bật thông báo</button>
+        <h2 >{{ $giasu->HoTen ?? 'Tên người dùng' }}</h2>        <button>Bật thông báo</button>
         <a href="#">Quản lý chung</a>
-        <a href="#">Danh sách gia sư</a>
+        <a href="#">Danh sách lớp mới</a>
         <a href="#">Quản lý lớp</a>
-        <a href="#">Đăng yêu cầu tìm gia sư</a>
+        <a href="#">Giới thiệu gia sư</a>
         <a href="#">Cài đặt</a>
         <a href="#">Chat online</a>
         <a href="#">Đăng xuất</a>
     </div>
     <div class="content">
-    <form action="{{ route('phuhuynh.update') }}" method="POST" enctype="multipart/form-data">
-            @csrf <!-- Thêm token CSRF -->
-            <div class="profile-info">
-                <h2>Thông tin cá nhân</h2>
+    <form action="{{ url('/save-giasu') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <div class="profile-info">
+        <h2>Thông tin cá nhân</h2>
 
-                <!-- Thêm thông báo thành công -->
-                @if(session('success'))
-                    <div style="color: green; margin-bottom: 15px;">{{ session('success') }}</div>
-                @endif
+        @if(session('success'))
+            <div style="color: green; margin-bottom: 15px;">{{ session('success') }}</div>
+        @endif
 
-                <label for="full-name">Họ và tên:</label>
-                <input type="text" id="HoTen" name="HoTen" placeholder=""
-                       value="{{ session('HoTen', '') }}" required/>
+        <label for="HoTen">Họ và tên:</label>
+        <input type="text" name="HoTen" id="HoTen" placeholder="Nhập vào họ tên..." required/>
 
-                <label for="ngay-sinh">Ngày sinh:</label>
-                <input type="date" id="NgaySinh" name="NgaySinh" placeholder=""
-                       value="{{ session('NgaySinh', '') }}" required/>
+        <label for="NgaySinh">Ngày sinh:</label>
+        <input type="date" name="NgaySinh" id="NgaySinh" required/>
 
-                <label for="gioi-tinh">Giới Tính:</label>
-                <input type="text" id="GioiTinh" name="GioiTinh" placeholder=""
-                       value="{{ session('GioiTinh', '') }}" required/>
+        <label for="GioiTinh">Giới tính:</label>
+        <select name="GioiTinh" id="GioiTinh" required>
+            <option value="Nữ">Nữ</option>
+            <option value="Nam">Nam</option>
+        </select>
 
-                <label for="phone">Số điện thoại:</label>
-                <input type="text" id="SDT" name="SDT" placeholder=""
-                       value="{{ session('SDT', '') }}" required/>
+        <label for="SĐT">Số điện thoại:</label>
+        <input type="text" name="SĐT" id="SĐT" placeholder="Nhập vào SĐT" required/>
 
-                <label for="email">Email:</label>
-                <input type="email" id="Email" name="Email" placeholder=""
-                       value="{{ session('Email', '') }}" required/>
+        <label for="Email">Email:</label>
+        <input type="email" name="Email" id="Email" placeholder="example@example.com" required/>
 
-                <label for="address">Địa chỉ:</label>
-                <input type="text" id="DiaChi" name="DiaChi" placeholder=""
-                       value="{{ session('DiaChi', '') }}" required/>
+        <label for="DiaChi">Địa điểm dạy:</label>
+        <input type="text" name="DiaChi" id="DiaChi" placeholder="Địa điểm dạy" required/>
 
-                <label for="profile-pic">Ảnh đại diện:</label>
-                <input type="file" id="Anh" name="Anh" />
+        <label for="Anh">Ảnh đại diện:</label>
+        <input type="file" name="Anh" id="Anh" />
 
-                <label for="CCCD">Ảnh CCCD:</label>
-                <input type="file" id="CCCD" name="CCCD" />
+        <label for="TrinhDo">Trình độ:</label>
+        <input type="text" name="TrinhDo" id="TrinhDo" placeholder="Trình độ" required/>
 
-                <button type="submit">Lưu thay đổi</button>
-            </div>
-        </form>
+        <label for="KinhNghiem">Kinh nghiệm:</label>
+        <input type="text" name="KinhNghiem" id="KinhNghiem" placeholder="Kinh nghiệm" required/>
+
+        <label for="BangCap">Bằng cấp:</label>
+        <input type="text" name="BangCap" id="BangCap" placeholder="Bằng cấp" required/>
+
+        <button type="submit">Lưu thay đổi</button>
     </div>
+</form>
+</div>
 </body>
 </html>
