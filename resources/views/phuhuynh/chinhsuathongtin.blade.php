@@ -104,6 +104,22 @@
             margin: 10px 0;
             display: none; /* Ẩn hình ảnh mặc định */
         }
+
+        .sidebar button {
+        background-color: #007bff; /* Màu nền cho nút */
+        color: white; /* Màu chữ */
+        border: none; /* Bỏ viền */
+        padding: 10px 15px; /* Padding cho nút */
+        border-radius: 5px; /* Bo góc */
+        cursor: pointer; /* Con trỏ khi di chuột */
+        transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
+        width: 100%; /* Chiếm toàn bộ chiều rộng */
+        margin-bottom: 10px; /* Khoảng cách giữa các nút */
+        }
+
+        .sidebar button:hover {
+        background-color: #0056b3; /* Màu nền khi hover */
+        }
     </style>
 </head>
 <body>
@@ -121,10 +137,14 @@
         <a href="#">Đăng yêu cầu tìm gia sư</a>
         <a href="#">Cài đặt</a>
         <a href="#">Chat online</a>
-        <a href="#">Đăng xuất</a>
+        <!-- <a href="#">Đăng xuất</a> -->
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+        </form>
     </div>
     <div class="content">
-    <form action="{{ route('phuhuynh.update') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('save-phuhuynh') }}" method="POST" enctype="multipart/form-data">
             @csrf <!-- Thêm token CSRF -->
             <div class="profile-info">
                 <h2>Thông tin cá nhân</h2>
@@ -164,7 +184,7 @@
                 <label for="CCCD">Ảnh CCCD:</label>
                 <input type="file" id="CCCD" name="CCCD" />
 
-                <button type="submit">Lưu thay đổi</button>
+                <button type="submit">Lưu thay đổi và chờ xác nhận</button>
             </div>
         </form>
     </div>
