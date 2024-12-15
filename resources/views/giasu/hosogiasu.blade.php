@@ -225,26 +225,18 @@
                     <label for="NoiHocTap">Nơi học tập/công tác:</label>
                     <input type="text" id="NoiHocTap" name="NoiHocTap" value="{{ session('NoiHocTap', '') }}" required/>
 
-                    <label for="BangCap">Bằng cấp:</label>
-                    <input type="text" id="BangCap" name="BangCap" value="{{ session('BangCap', '') }}" required/>
+                    <label for="TrinhDo">Trình Độ:</label>
+                    <input type="text" id="TrinhDo" name="TrinhDo" value="{{ session('TrinhDo', '') }}" required/>
 
                     <label for="ChuyenNganh">Chuyên ngành:</label>
                     <input type="text" id="ChuyenNganh" name="ChuyenNganh" value="{{ session('ChuyenNganh', '') }}" required/>
-                </div>
-
-                <div class="column1">
+            
                     <label for="HinhThucDay">Hình thức dạy:</label>
                     <input type="text" id="HinhThucDay" name="HinhThucDay" value="{{ session('HinhThucDay', '') }}" required/>
 
                     <label for="MonHoc">Môn học sẽ dạy:</label>
                     <input type="text" id="MonHoc" name="MonHoc" value="{{ session('MonHoc', '') }}" required/>
-
-                    <label for="ThoiGian">Thời gian có thể dạy:</label>
-                    <input type="text" id="ThoiGian" name="ThoiGian" value="{{ session('ThoiGian', '') }}" required/>
-
-                    <label for="HocPhi">Học phí vnđ/buổi:</label>
-                    <input type="text" id="HocPhi" name="HocPhi" value="{{ session('HocPhi', '') }}" required/>
-                </div>
+            </div>
             </div>
 
             <h2>Ảnh xác nhận thông tin gia sư</h2>
