@@ -146,7 +146,7 @@
 
         <button>Bật thông báo</button>
         <a href="#">Quản lý chung</a>
-        <a href="#">Danh sách lớp mới</a>
+        <a href="{{ route('lophoc') }}">Danh sách lớp mới</a>
         <a href="#">Quản lý lớp</a>
         <a href="#">Giới thiệu gia sư</a>
         <a href="#">Cài đặt</a>
