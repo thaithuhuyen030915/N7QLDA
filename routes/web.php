@@ -131,4 +131,4 @@ Route::get('/phuhuynh/chinhsuathongtin', function () {
 })->name('phuhuynh.chinhsuathongtin');
 
 //------- Chỉnh sửa thông tin Phụ huynh -------//
-Route::post('/save-phuhuynh', [PhuHuynhController::class, 'update'])->name('phuhuynh.update');
+Route::post('/save-phuhuynh', [PhuHuynhController::class, 'save'])->name('save-phuhuynh');
