@@ -23,68 +23,38 @@ class GiaSuController extends Controller
             'ThanhTich' => 'required|string',
             'ChucVu' => 'required|string',
             'NoiHocTap' => 'required|string',
-            'BangCap' => 'required|string',
+            'TrinhDo' => 'required|string',
             'ChuyenNganh' => 'required|string',
             'HinhThucDay' => 'required|string',
             'MonHoc' => 'required|string',
-            'ThoiGian' => 'required|string',
-            'HocPhi' => 'required|numeric',
             'CCCD' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048',
             'MinhChung' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Lưu hình ảnh nếu có
-        $imageName = null;
-        if ($request->hasFile('Anh')) {
-            $imageName = time() . '.' . $request->Anh->extension();
-            $request->Anh->move(public_path('assets/img'), $imageName);
-        }
+       
+         // Đưa thông tin vào session để hiển thị lại trên giao diện
+        return redirect()->back()->with([
+        'success' => 'Lưu thành công và chờ xác nhận!',
+        'HoTen' => $request->HoTen,
+        'NgaySinh' => $request->NgaySinh,
+        'GioiTinh' => $request->GioiTinh,
+        'SDT' => $request->SDT,
+        'Email' => $request->Email,
+        'DiaChi' => $request->DiaChi,
+        'QueQuan' => $request->QueQuan,
+        'Tinh/Thanh' => $request->input('Tinh/Thanh'),
+        'Quan/Huyen' => $request->input('Quan/Huyen'),
+        'KinhNghiem' => $request->KinhNghiem,
+        'ThanhTich' => $request->ThanhTich,
+        'ChucVu' => $request->ChucVu,
+        'NoiHocTap' => $request->NoiHocTap,
+        'TrinhDo' => $request->TrinhDo,
+        'ChuyenNganh' => $request->ChuyenNganh,
+        'HinhThucDay' => $request->HinhThucDay,
+        'MonHoc' => $request->MonHoc,
+    ]);
 
-        // Lưu thông tin người dùng
-        $nguoiDung = new NguoiDung();
-        $nguoiDung->HoTen = $request->HoTen;
-        $nguoiDung->NgaySinh = $request->NgaySinh;
-        $nguoiDung->GioiTinh = $request->GioiTinh;
-        $nguoiDung->SDT = $request->SDT;
-        $nguoiDung->Email = $request->Email;
-        $nguoiDung->DiaChi = $request->DiaChi;
-        $nguoiDung->Anh = $imageName;
-        $nguoiDung->save();
-
-        // Lưu thông tin gia sư
-        $giaSu = new GiaSu();
-        $giaSu->MaHoSoGS = $nguoiDung->id; // Giả sử MaHoSoGS là khóa ngoại từ NguoiDung
-        $giaSu->LoaiNguoiDung = 'Gia Sư'; // Hoặc lấy từ input nếu cần
-        $giaSu->KinhNghiem = $request->KinhNghiem;
-        $giaSu->BangCap = $request->BangCap;
-        $giaSu->QueQuan = $request->QueQuan;
-        $giaSu->Tinh_Thanh = $request->input('Tinh/Thanh');
-        $giaSu->Quan_Huyen = $request->input('Quan/Huyen');
-        $giaSu->ThanhTich = $request->ThanhTich;
-        $giaSu->ChucVu = $request->ChucVu;
-        $giaSu->NoiHocTap = $request->NoiHocTap;
-        $giaSu->HinhThucDay = $request->HinhThucDay;
-        $giaSu->MonHoc = $request->MonHoc;
-        $giaSu->ThoiGian = $request->ThoiGian;
-        $giaSu->HocPhi = $request->HocPhi;
-
-        // Lưu file CCCD và Minh Chứng
-        if ($request->hasFile('CCCD')) {
-            $cccdName = time() . '_cccd.' . $request->CCCD->extension();
-            $request->CCCD->move(public_path('assets/img'), $cccdName);
-            $giaSu->CCCD = $cccdName;
-        }
-
-        if ($request->hasFile('MinhChung')) {
-            $minhChungName = time() . '_minhchung.' . $request->MinhChung->extension();
-            $request->MinhChung->move(public_path('assets/img'), $minhChungName);
-            $giaSu->MinhChung = $minhChungName;
-        }
-
-        $giaSu->ChuyenNganh = $request->ChuyenNganh;
-        $giaSu->save();
-
-        return redirect()->back()->with('success', 'Thông tin đã được lưu thành công!');
+        //return redirect()->back()->with('success', 'Thông tin đã được lưu thành công!');
     }
 }
 ?>
