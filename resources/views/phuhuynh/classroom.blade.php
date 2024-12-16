@@ -177,7 +177,7 @@
                     </select>
                     <input type="text" placeholder="Số điện thoại, gia sư hoặc lớp học" class="search-input">
                     <button class="search-button">Tìm Kiếm</button>
-                    <button class="add-button">Thêm lớp học</button>
+                    <a href="{{ route('lophoc.create') }}" class="add-button">Thêm lớp học</a>
                 </div>
                 <div class="no-data-message">Không có lớp học nào!</div>
             </div>
