@@ -69,9 +69,8 @@
                            <li><a href="{{ route('giasu.toan') }}">Gia sư môn Tiểu học</a></li>
                         </ul>
                      </li>
-                     <li><a href="gallery.html">Danh sách gia sư</a></li>
                      <li><a href="{{ route('lophoc') }}">Danh sách lớp mới</a></li>
-                     <li><a href="contact.html">Tin tức</a></li>
+                     <li><a href="">Tin tức</a></li>
                   </ul>
                   </a>
                </div>
