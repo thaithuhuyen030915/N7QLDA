@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\GiaSu;
 use App\Models\NguoiDung;
 
-class GiaSuController extends Controller
+class GiasuController extends Controller
 {
     public function save(Request $request)
     {
@@ -31,7 +31,7 @@ class GiaSuController extends Controller
             'MinhChung' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-       
+
          // Đưa thông tin vào session để hiển thị lại trên giao diện
         return redirect()->back()->with([
         'success' => 'Lưu thành công và chờ xác nhận!',

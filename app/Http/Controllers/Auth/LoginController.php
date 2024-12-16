@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use App\Models\QuanTriVien;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,6 +52,12 @@ class LoginController extends Controller
                 // Phân loại tài khoản
                 if ($user->LoaiTK === 'QTV') {
                     $this->handleAdminLogin($user);
+                    $admin = QuanTriVien::where('TenDN', $username)->first();
+                    if ($admin) {
+                        $role = $admin->vaiTro ? $admin->vaiTro->TenVaiTro : 'Chưa xác định';
+                        Session::put('TenVaiTro', $role); // Lưu tên vai trò vào session
+                    }
+                    DB::commit();
                     return redirect()->intended('homeadmin');
                 } elseif ($user->LoaiTK === 'Phụ huynh') {
                     $maHoSo = $this->handleParentLogin($username, $user);
@@ -75,7 +81,7 @@ class LoginController extends Controller
             return redirect()->back()->withInput();
         }
     }
-    
+
 
     /**
      * Xử lý đăng xuất.
@@ -99,7 +105,6 @@ class LoginController extends Controller
         Session::put('NgayTao', $user->NgayTao);
         Session::put('TrangThaiTK', $user->TrangThaiTK);
         Toastr::success('Chào mừng Quản trị viên!', 'Thành công');
-        DB::commit();
     }
 
     /**
@@ -163,14 +168,14 @@ class LoginController extends Controller
             ->join('nguoidung', 'giasu.MaHoSoGS', '=', 'nguoidung.MaHoSoND')
             ->where('giasu.MaHoSoGS', $maHoSo)
             ->first();
-    
+
         if (!$giaSu) {
             Toastr::error('Không tìm thấy thông tin gia sư.', 'Lỗi');
             return redirect()->route('home');
         }
-    
+
         return view('giasu.hosogiasu', compact('giaSu'));
     }
-    
+
 
 }

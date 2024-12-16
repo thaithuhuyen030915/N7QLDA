@@ -120,7 +120,9 @@ Route::get('/phuhuynh/{MaHoSoPH}/lophoc', [LopHocController::class, 'lopdatao'])
 
 //------- Chỉnh sửa thông tin Gia Sư -------//
 
-Route::post('/save-giasu', [GiaSuController::class, 'save'])->name('save-giasu');
+Route::post('/save-giasu/', [GiasuController::class, 'save'])->name('save-giasu');
+Route::post('/hosogiasu/{maHoSo}', [GiasuController::class, 'save'])->name('hosogiasu.upadte');
+
 
 
 //------- Phụ huynh -------//
