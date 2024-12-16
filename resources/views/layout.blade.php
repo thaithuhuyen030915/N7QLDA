@@ -55,9 +55,9 @@
          <div class="sticky-nav js-sticky-header">
             <div class="container position-relative">
                <div class="site-navigation text-center">
-                  <a href="index.html" class="logo menu-absolute m-0">ĐĂNG MINH<span class="text-primary">.</span></a>
+                  <a href="" class="logo menu-absolute m-0">ĐĂNG MINH<span class="text-primary">.</span></a>
                   <ul class="js-clone-nav d-none d-lg-inline-block site-menu">
-                     <li class="active"><a href="home.php">Home</a></li>
+                     <li class="active"><a href="">Home</a></li>
                      <li class="has-children">
                         <a>Dịch vụ gia sư</a>
                         <ul class="dropdown">
