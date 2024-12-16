@@ -11,6 +11,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\PhuHuynhController;
+use App\Http\Controllers\GiasuToanController;
+
 
 use Illuminate\Support\Facades\Request;
 
@@ -132,3 +134,6 @@ Route::get('/phuhuynh/chinhsuathongtin', function () {
 
 //------- Chỉnh sửa thông tin Phụ huynh -------//
 Route::post('/save-phuhuynh', [PhuHuynhController::class, 'save'])->name('save-phuhuynh');
+
+//------- Gia sư Toán -------//
+Route::get('/giasutoan', [GiasuToanController::class, 'showToan'])->name('giasu.toan');

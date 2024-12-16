@@ -15,9 +15,6 @@
                         <p class="card-text">Thời lượng (giờ): {{ $lopHoc->ThoiLuongBuoiHoc }}</p>
                         <p class="card-text">Hình thức: {{ $lopHoc->HinhThucHoc }}</p>
                     </div>
-                    <div class="card-footer border-0 text-center">
-                        <button type="button" class="btn btn-primary">Đề nghị dạy</button>
-                    </div>
                 </div>
             </div>
         @endforeach
@@ -33,9 +30,6 @@
                         <h5 class="card-title" style="color: #007bff;">{{ $giasu->nguoidung->HoTen }}</h5>
                         <p class="card-text">Trình độ: {{ $giasu->TrinhDo }}</p>
                         <p class="card-text">Kinh nghiệm: {{ $giasu->KinhNghiem }}</p>
-                    </div>
-                    <div class="card-footer border-0 text-center">
-                        <button type="button" class="btn btn-primary">Mời dạy</button>
                     </div>
                 </div>
             </div>

@@ -35,9 +35,9 @@
             <div class="container">
                <div class="row align-items-center">
                   <div class="col-6 col-lg-9">
-                     <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> <span class="d-none d-lg-inline-block">Have a questions?</span></a> 
-                     <a href="#" class="small mr-3"><span class="icon-phone mr-2"></span> <span class="d-none d-lg-inline-block">0984 930 223</span></a> 
-                     <a href="#" class="small mr-3"><span class="icon-envelope mr-2"></span> <span class="d-none d-lg-inline-block">kimhuee2012@gmail.com</span></a> 
+                     <a href="" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> <span class="d-none d-lg-inline-block">Have a questions?</span></a> 
+                     <a href="" class="small mr-3"><span class="icon-phone mr-2"></span> <span class="d-none d-lg-inline-block">0984 930 223</span></a> 
+                     <a href="" class="small mr-3"><span class="icon-envelope mr-2"></span> <span class="d-none d-lg-inline-block">kimhuee2012@gmail.com</span></a> 
                   </div>
                   <div class="col-6 col-lg-3 text-right">
                      <a href="{{ route('login') }}" class="small mr-3">
@@ -59,34 +59,20 @@
                   <ul class="js-clone-nav d-none d-lg-inline-block site-menu">
                      <li class="active"><a href="home.php">Home</a></li>
                      <li class="has-children">
-                        <a href="#">Dịch vụ gia sư</a>
+                        <a>Dịch vụ gia sư</a>
                         <ul class="dropdown">
-                           <li><a href="#">Gia sư môn Toán</a></li>
-                           <li><a href="#">Gia sư môn Anh</a></li>
-                           <li><a href="#">Gia sư môn Văn</a></li>
-                           <li><a href="#">Gia sư môn Hóa</a></li>
-                           <li><a href="#">Gia sư môn Lý</a></li>
-                           <li><a href="#">Gia sư môn Tiểu học</a></li>
-                           <li><a href="#">Gia sư môn Năng khiếu</a></li>
-                           <li class="has-children">
-                              <a href="#">Menu Two</a>
-                              <ul class="dropdown">
-                                 <li><a href="#">Sub Menu One</a></li>
-                                 <li><a href="#">Sub Menu Two</a></li>
-                                 <li><a href="#">Sub Menu Three</a></li>
-                              </ul>
-                           </li>
+                           <li><a href="{{ route('giasu.toan') }}">Gia sư môn Toán</a></li>
+                           <li><a href="{{ route('giasu.toan') }}">Gia sư môn Anh</a></li>
+                           <li><a href="{{ route('giasu.toan') }}">Gia sư môn Văn</a></li>
+                           <li><a href="{{ route('giasu.toan') }}">Gia sư môn Hóa</a></li>
+                           <li><a href="{{ route('giasu.toan') }}">Gia sư môn Lý</a></li>
+                           <li><a href="{{ route('giasu.toan') }}">Gia sư môn Tiểu học</a></li>
                         </ul>
                      </li>
-                     <li><a href="staff.html">Phụ huynh</a></li>
-                     <li><a href="news.html">Gia sư</a></li>
                      <li><a href="gallery.html">Danh sách gia sư</a></li>
                      <li><a href="{{ route('lophoc') }}">Danh sách lớp mới</a></li>
                      <li><a href="contact.html">Tin tức</a></li>
                   </ul>
-                  <a href="#" class="btn-book btn btn-secondary btn-sm menu-absolute">Về chúng tôi</a>
-                  <a href="#" class="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">
-                  <span></span>
                   </a>
                </div>
             </div>
@@ -134,13 +120,12 @@
                   <div class="widget">
                      <h3>Dịch vụ gia sư</h3>
                      <ul class="list-unstyled float-left links">
-                        <li><a href="#">Gia sư môn Toán</a></li>
-                        <li><a href="#">Gia sư môn Anh</a></li>
-                        <li><a href="#">Gia sư môn Văn</a></li>
-                        <li><a href="#">Gia sư môn Hóa</a></li>
-                        <li><a href="#">Gia sư môn Lý</a></li>
-                        <li><a href="#">Gia sư môn Tiểu học</a></li>
-                        <li><a href="#">Gia sư môn Năng khiếu</a></li>
+                        <li><a href="{{ route('giasu.toan') }}">Gia sư môn Toán</a></li>
+                        <li><a href="{{ route('giasu.toan') }}">Gia sư môn Anh</a></li>
+                        <li><a href="{{ route('giasu.toan') }}">Gia sư môn Văn</a></li>
+                        <li><a href="{{ route('giasu.toan') }}">Gia sư môn Hóa</a></li>
+                        <li><a href="{{ route('giasu.toan') }}">Gia sư môn Lý</a></li>
+                        <li><a href="{{ route('giasu.toan') }}">Gia sư môn Tiểu học</a></li>
                      </ul>
                   </div>
                   <!-- /.widget -->
